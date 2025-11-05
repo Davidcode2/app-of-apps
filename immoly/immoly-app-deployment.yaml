@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.37.0 (HEAD)
+  labels:
+    io.kompose.service: immoly-app
+  name: immoly-app
+  namespace: immoly
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: immoly-app
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.37.0 (HEAD)
+      labels:
+        io.kompose.service: immoly-app
+    spec:
+      containers:
+        - envFrom:
+            - configMapRef:
+                name: env
+          image: ghcr.io/davidcode2/immoly:latest
+          name: immoly-app
+      restartPolicy: Always

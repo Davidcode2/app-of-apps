@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.37.0 (HEAD)
+  labels:
+    io.kompose.service: immoly-postgres
+  name: immoly-postgres
+  namespace: immoly
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: immoly-postgres
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.37.0 (HEAD)
+      labels:
+        io.kompose.service: immoly-postgres
+    spec:
+      containers:
+        - env:
+            - name: POSTGRES_DB
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: immoly-db-secret
+                  key: DB_PASSWORD
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: immoly-db-secret
+                  key: DB_USER
+            - name: POSTGRES_CONNECTION_STRING
+              valueFrom: 
+                secretKeyRef:
+                  name: immoly-db-secret
+                  key: POSTGRES_CONNECTION_STRING 
+          image: postgres:16.0-alpine
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready -U postgres -d postgres
+            failureThreshold: 5
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 5
+          name: immoly-postgres
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: immoly-volume
+      restartPolicy: Always
+      volumes:
+        - name: immoly-volume
+          persistentVolumeClaim:
+            claimName: immoly-volume
