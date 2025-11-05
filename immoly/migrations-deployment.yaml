@@ -7,6 +7,7 @@ metadata:
   labels:
     io.kompose.service: migrations
   name: migrations
+  namespace: immoly
 spec:
   replicas: 1
   selector:
