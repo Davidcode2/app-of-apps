@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: immoly
+  namespace: argocd 
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/davidcode2/app-of-apps
+    targetRevision: HEAD
+    path: immoly 
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: immoly
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      # This ensures the target namespace is created if it doesn't exist
+      - CreateNamespace=true
