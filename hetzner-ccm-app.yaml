@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hetzner-ccm
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  destination:
+    # The CCM must run in the kube-system namespace
+    namespace: kube-system
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://charts.hetzner.cloud
+    chart: hcloud-cloud-controller-manager
+    targetRevision: "1.18.0" # Current stable version
+    helm:
+      values: |
+        # This tells the CCM to look for a secret named 'hcloud'
+        # in the 'kube-system' namespace for the API token.
+        # We will create this secret in the next step.
+        hcloud:
+          secretName: hcloud
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      # The CCM needs to be created in kube-system
+      - CreateNamespace=false
