@@ -23,6 +23,7 @@ spec:
           service:
             annotations:
               load-balancer.hetzner.cloud/network-zone: eu-central
+              load-balancer.hetzner.cloud/location: nbg1
   syncPolicy:
     automated:
       prune: true
