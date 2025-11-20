@@ -6,6 +6,7 @@ metadata:
     kompose.version: 1.37.0 (HEAD)
   labels:
     io.kompose.service: immoly-app
+    app: immoly-app
   name: immoly-app
   namespace: immoly
 spec:
@@ -13,6 +14,7 @@ spec:
   selector:
     matchLabels:
       io.kompose.service: immoly-app
+      app: immoly-app
   template:
     metadata:
       annotations:
@@ -20,6 +22,7 @@ spec:
         kompose.version: 1.37.0 (HEAD)
       labels:
         io.kompose.service: immoly-app
+        app: immoly-app
     spec:
       containers:
         - envFrom:
