@@ -1,0 +1,37 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: schluesselmomente-ingress
+  namespace: schluesselmomente
+  annotations:
+    # We use a sync-wave to ensure this resource is only applied
+    # *after* the service it depends on has been created by ArgoCD.
+    argocd.argoproj.io/sync-wave: "1"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  # This tells the NGINX controller to manage this Ingress
+  ingressClassName: nginx
+  rules:
+    - host: "schluesselmomente-freiburg.de"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: schluesselmomente-fe-service
+                port:
+                  # This must match the 'port' (not targetPort) from the Service
+                  number: 80
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: schluesselmomente-be-service
+                port:
+                  # This must match the 'port' (not targetPort) from the Service
+                  number: 80
+  tls:
+  - hosts:
+      - "schluesselmomente-freiburg.de"
+    secretName: schluesselmomente-tls

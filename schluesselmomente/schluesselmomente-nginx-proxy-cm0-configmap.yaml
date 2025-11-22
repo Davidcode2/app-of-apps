@@ -1,0 +1,10 @@
+apiVersion: v1
+data:
+  nginx.conf: "events {}\n\nhttp {\n  server {\n      listen 80;\n      listen [::]:80;\n      server_name schluesselmomente-freiburg.de www.schluesselmomente-freiburg.de; \n\n      location ^~ /api/ {\n        proxy_pass http://schluesselmomente-be:99;\n\n        # Forward the original Host header\n        proxy_set_header Host $host;\n        # Forward the client's real IP address\n        proxy_set_header X-Real-IP $remote_addr;\n        # Forward the chain of proxy IPs\n        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n        # Forward the protocol (http or https)\n        proxy_set_header X-Forwarded-Proto $scheme;\n      }\n\n      location / {\n          proxy_pass http://schluesselmomente:80;\n      }\n  }\n\n  #  server {\n  #      listen 80;\n  #      listen [::]:80;\n  #      server_name api.schluesselmomente-freiburg.de www.api.schluesselmomente-freiburg.de; \n  #\n  #      location / {\n  #        proxy_pass http://schluesselmomente-cms:1337;\n  #\n  #        # Forward the original Host header\n  #        proxy_set_header Host $host;\n  #        # Forward the client's real IP address\n  #        proxy_set_header X-Real-IP $remote_addr;\n  #        # Forward the chain of proxy IPs\n  #        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n  #        # Forward the protocol (http or https)\n  #        proxy_set_header X-Forwarded-Proto $scheme;\n  #      }\n  #  }\n}\n"
+kind: ConfigMap
+metadata:
+  annotations:
+    use-subpath: "true"
+  labels:
+    io.kompose.service: schluesselmomente-nginx-proxy
+  name: schluesselmomente-nginx-proxy-cm0
