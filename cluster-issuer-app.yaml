@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cluster-issuer
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    namespace: cert-manager  # the namespace where this will be applied
+    server: https://kubernetes.default.svc
+  source:
+    path: cluster-issuer     
+    repoURL: https://github.com/davidcode2/app-of-apps 
+    targetRevision: main
+    directory:
+      recurse: true
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
