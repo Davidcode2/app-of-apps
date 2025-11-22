@@ -7,7 +7,7 @@ metadata:
     # We use a sync-wave to ensure this resource is only applied
     # *after* the service it depends on has been created by ArgoCD.
     argocd.argoproj.io/sync-wave: "1"
-    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   # This tells the NGINX controller to manage this Ingress
   ingressClassName: nginx
