@@ -23,4 +23,5 @@ spec:
   tls:
   - hosts:
       - "argocd.jakob-lingel.dev"
+      - "www.argocd.jakob-lingel.dev"
     secretName: argocd-tls

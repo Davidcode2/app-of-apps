@@ -26,4 +26,5 @@ spec:
   tls:
   - hosts:
       - "immoly.io"
+      - "www.immoly.io"
     secretName: immoly-tls

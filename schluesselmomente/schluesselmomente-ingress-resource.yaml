@@ -41,4 +41,5 @@ spec:
   tls:
   - hosts:
       - "schluesselmomente-freiburg.de"
+      - "www.schluesselmomente-freiburg.de"
     secretName: schluesselmomente-tls
