@@ -38,7 +38,7 @@ spec:
                 port:
                   # This must match the 'port' (not targetPort) from the Service
                   number: 80
-#  tls:
-#  - hosts:
-#      - "schluesselmomente-freiburg.de"
-#    secretName: schluesselmomente-tls
+  tls:
+  - hosts:
+      - "schluesselmomente-freiburg.de"
+    secretName: schluesselmomente-tls

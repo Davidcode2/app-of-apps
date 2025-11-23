@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: schluesselmomente-www-redirect
+  namespace: schluesselmomente
+  annotations:
+    nginx.ingress.kubernetes.io/permanent-redirect: https://schluesselmomente-freiburg.de
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: "www.schluesselmomente-freiburg.de"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: schluesselmomente-fe-service
+                port:
+                  number: 80 # unused but required syntactically
