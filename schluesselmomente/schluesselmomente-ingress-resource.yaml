@@ -38,6 +38,33 @@ spec:
                 port:
                   # This must match the 'port' (not targetPort) from the Service
                   number: 80
+    - host: "www.schluesselmomente-freiburg.de"
+      http:
+        paths:
+          - path: /.well-known/acme-challenge/
+            pathType: Prefix
+            backend:
+              service:
+                name: schluesselmomente-fe-service
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: schluesselmomente-fe-service
+                port:
+                  # This must match the 'port' (not targetPort) from the Service
+                  number: 80
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: schluesselmomente-be-service
+                port:
+                  # This must match the 'port' (not targetPort) from the Service
+                  number: 80
+
   tls:
   - hosts:
       - "schluesselmomente-freiburg.de"
