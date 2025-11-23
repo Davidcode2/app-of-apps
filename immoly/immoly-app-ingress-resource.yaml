@@ -23,6 +23,17 @@ spec:
                 port:
                   # This must match the 'port' (not targetPort) from the Service
                   number: 80
+    - host: "www.immoly.io"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: immoly-app-service
+                port:
+                  # This must match the 'port' (not targetPort) from the Service
+                  number: 80
   tls:
   - hosts:
       - "immoly.io"
