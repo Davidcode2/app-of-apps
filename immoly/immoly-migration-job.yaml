@@ -27,7 +27,7 @@ spec:
           - name: POSTGRES_HOST
             value: immoly-postgres-service
           - name: POSTGRES_PORT
-            value: 5432
+            value: "5432"
           - name: NODE_ENV
             value: production
           - name: POSTGRES_PASSWORD
