@@ -5,8 +5,6 @@ metadata:
     io.kompose.service: immoly-volume
   name: immoly-volume
   namespace: immoly
-  annotations:
-    argocd.argoproj.io/sync-options: Delete=true
 spec:
   accessModes:
     - ReadWriteOnce
