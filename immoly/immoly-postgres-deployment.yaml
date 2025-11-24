@@ -9,7 +9,7 @@ metadata:
   name: immoly-postgres
   namespace: immoly
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       io.kompose.service: immoly-postgres
