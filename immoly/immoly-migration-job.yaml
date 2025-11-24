@@ -1,40 +1,40 @@
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: immoly-migrate-db
-  namespace: immoly
-  annotations:
-    argocd.argoproj.io/hook: PreSync
-    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
-  labels:
-    app: immoly-migrations
-spec:
-  ttlSecondsAfterFinished: 300
-  backoffLimit: 3
-  template:
-    metadata:
-      labels:
-        app: immoly-migrations
-    spec:
-      restartPolicy: Never
-      containers:
-      - name: migrate
-        image: ghcr.io/davidcode2/immoly-migrations:latest
-        command: ["npx", "drizzle-kit", "migrate"]
-        env:
-          - name: POSTGRES_DB
-            value: postgres
-          - name: POSTGRES_HOST
-            value: immoly-postgres-service
-          - name: POSTGRES_PORT
-            value: "5432"
-          - name: POSTGRES_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: immoly-db-secret
-                key: DB_PASSWORD
-          - name: POSTGRES_USER
-            valueFrom:
-              secretKeyRef:
-                name: immoly-db-secret
-                key: DB_USER
+#apiVersion: batch/v1
+#kind: Job
+#metadata:
+#  name: immoly-migrate-db
+#  namespace: immoly
+#  annotations:
+#    argocd.argoproj.io/hook: PreSync
+#    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+#  labels:
+#    app: immoly-migrations
+#spec:
+#  ttlSecondsAfterFinished: 300
+#  backoffLimit: 3
+#  template:
+#    metadata:
+#      labels:
+#        app: immoly-migrations
+#    spec:
+#      restartPolicy: Never
+#      containers:
+#      - name: migrate
+#        image: ghcr.io/davidcode2/immoly-migrations:latest
+#        command: ["npx", "drizzle-kit", "migrate"]
+#        env:
+#          - name: POSTGRES_DB
+#            value: postgres
+#          - name: POSTGRES_HOST
+#            value: immoly-postgres-service
+#          - name: POSTGRES_PORT
+#            value: "5432"
+#          - name: POSTGRES_PASSWORD
+#            valueFrom:
+#              secretKeyRef:
+#                name: immoly-db-secret
+#                key: DB_PASSWORD
+#          - name: POSTGRES_USER
+#            valueFrom:
+#              secretKeyRef:
+#                name: immoly-db-secret
+#                key: DB_USER
