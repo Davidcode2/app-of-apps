@@ -22,8 +22,22 @@ spec:
         image: ghcr.io/davidcode2/immoly-migrations:latest
         command: ["npx", "drizzle-kit", "migrate"]
         env:
-        - name: DATABASE_URL
-          valueFrom:
-            secretKeyRef:
-              name: immoly-db-secret
-              key: POSTGRES_CONNECTION_STRING
+          - name: PGDATA
+            value: /var/lib/postgresql/data
+          - name: POSTGRES_DB
+            value: postgres
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: immoly-db-secret
+                key: DB_PASSWORD
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: immoly-db-secret
+                key: DB_USER
+          - name: POSTGRES_CONNECTION_STRING
+            valueFrom: 
+              secretKeyRef:
+                name: immoly-db-secret
+                key: POSTGRES_CONNECTION_STRING 
