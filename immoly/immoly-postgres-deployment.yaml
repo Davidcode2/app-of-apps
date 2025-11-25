@@ -24,34 +24,22 @@ spec:
         io.kompose.service: immoly-postgres
     spec:
       containers:
-        - env:
+        - envFrom:
+            - configMapRef:
+                name: env
+            - secretRef:
+                name: immoly-db-secret
+          env:
             - name: PGDATA
               value: /var/lib/postgresql/data
-            - name: POSTGRES_DB
-              value: postgres
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: immoly-db-secret
-                  key: DB_PASSWORD
-            - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: immoly-db-secret
-                  key: DB_USER
-            - name: POSTGRES_CONNECTION_STRING
-              valueFrom: 
-                secretKeyRef:
-                  name: immoly-db-secret
-                  key: POSTGRES_CONNECTION_STRING 
           image: postgres:16.0-alpine
           livenessProbe:
             exec:
               command:
-                - pg_isready 
-                - -U 
-                - postgres 
-                - -d 
+                - pg_isready
+                - -U
+                - postgres
+                - -d
                 - postgres
             failureThreshold: 5
             initialDelaySeconds: 10
