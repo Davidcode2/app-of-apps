@@ -18,11 +18,11 @@ spec:
     spec:
       restartPolicy: Never
       containers:
-      - name: migrate
-        image: ghcr.io/davidcode2/immoly-migrations:latest
-        command: ["npx", "drizzle-kit", "migrate"]
-      - envFrom:
-          - configMapRef:
-              name: env
-          - secretRef: 
-              name: immoly-db-secret
+        - name: migrate
+          image: ghcr.io/davidcode2/immoly-migrations:latest
+          command: ["npx", "drizzle-kit", "migrate"]
+        - envFrom:
+            - configMapRef:
+                name: env
+            - secretRef:
+                name: immoly-db-secret
