@@ -25,11 +25,11 @@ spec:
         app: immoly-app
     spec:
       containers:
-        - envFrom:
-            - configMapRef:
-                name: env
-            - secretRef: 
-                name: immoly-db-secret
-          image: ghcr.io/davidcode2/immoly:latest
-          name: immoly-app
+        image: ghcr.io/davidcode2/immoly:latest
+        name: immoly-app
+        envFrom:
+          - configMapRef:
+              name: env
+          - secretRef:
+              name: immoly-db-secret
       restartPolicy: Always
