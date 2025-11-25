@@ -28,6 +28,8 @@ spec:
         - envFrom:
             - configMapRef:
                 name: env
+            - secretRef: 
+                name: immoly-db-secret
           image: ghcr.io/davidcode2/immoly:latest
           name: immoly-app
       restartPolicy: Always
