@@ -25,31 +25,31 @@ spec:
         io.kompose.service: immoly-postgres
     spec:
       containers:
-        image: postgres:16.0-alpine
-        name: immoly-postgres
-        volumeMounts:
-          - mountPath: /var/lib/postgresql/data
-            name: immoly-volume
-        envFrom:
-          - configMapRef:
-              name: env
-          - secretRef:
-              name: immoly-db-secret
-        env:
-          - name: PGDATA
-            value: /var/lib/postgresql/data
-        livenessProbe:
-          exec:
-            command:
-              - pg_isready
-              - -U
-              - postgres
-              - -d
-              - postgres
-          failureThreshold: 5
-          initialDelaySeconds: 10
-          periodSeconds: 5
-          timeoutSeconds: 5
+        - image: postgres:16.0-alpine
+          name: immoly-postgres
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: immoly-volume
+          envFrom:
+            - configMapRef:
+                name: env
+            - secretRef:
+                name: immoly-db-secret
+          env:
+            - name: PGDATA
+              value: /var/lib/postgresql/data
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - postgres
+                - -d
+                - postgres
+            failureThreshold: 5
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 5
       restartPolicy: Always
       volumes:
         - name: immoly-volume
