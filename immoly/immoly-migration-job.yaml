@@ -4,8 +4,7 @@ metadata:
   name: immoly-migrate-db
   namespace: immoly
   annotations:
-    argocd.argoproj.io/hook: PreSync
-    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/sync-wave: "1"
   labels:
     app: immoly-migrations
 spec:

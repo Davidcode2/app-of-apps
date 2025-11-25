@@ -4,6 +4,7 @@ metadata:
   annotations:
     kompose.cmd: kompose convert
     kompose.version: 1.37.0 (HEAD)
+    argocd.argoproj.io/sync-wave: "0"
   labels:
     io.kompose.service: immoly-postgres
   name: immoly-postgres
