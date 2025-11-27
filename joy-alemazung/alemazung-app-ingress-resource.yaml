@@ -1,0 +1,41 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: alemazung-ingress
+  namespace: alemazung
+  annotations:
+    # We use a sync-wave to ensure this resource is only applied
+    # *after* the service it depends on has been created by ArgoCD.
+    argocd.argoproj.io/sync-wave: "1"
+    cert-manager.io/cluster-issuer: "letsencrypt-stage"
+spec:
+  # This tells the NGINX controller to manage this Ingress
+  ingressClassName: nginx
+  rules:
+    - host: "alemazung.immoly.io"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: alemazung-app-service
+                port:
+                  # This must match the 'port' (not targetPort) from the Service
+                  number: 80
+    - host: "www.alemazung.immoly.io"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: alemazung-app-service
+                port:
+                  # This must match the 'port' (not targetPort) from the Service
+                  number: 80
+  tls:
+  - hosts:
+      - "alemazung.immoly.io"
+      - "www.alemazung.immoly.io"
+    secretName: alemazung-tls

@@ -1,0 +1,33 @@
+apiVersion: v1
+data:
+  .env: |
+    # Server
+    HOST=0.0.0.0
+    PORT=1337
+
+    # Secrets
+    APP_KEYS=UENwJg+ss6CzA4CJpCmReQ==,cLprq+45h2107UOQnj5OMg==,nD1nTLIkIhiNc1HuLP4lnA==,FI3I48dPdTX7GAKAc1dnPQ==
+    API_TOKEN_SALT=jQ3ebYTeXtmTqe7R310tew==
+    ADMIN_JWT_SECRET=fIJP6O+y1QRoBt917N1/2Q==
+    TRANSFER_TOKEN_SALT=XkXYvSKWshB/DsuKBmWd6w==
+    ENCRYPTION_KEY=qZboUURC5SQul4IRrY8D4A==
+
+    # Database
+    DATABASE_CLIENT=postgres
+    DATABASE_HOST=127.0.0.1
+    DATABASE_PORT=5432
+    DATABASE_NAME=strapi
+    DATABASE_USERNAME=strapi_user
+    DATABASE_PASSWORD=pHyn@CpX*X5*oYc!J8LsJusoU
+    DATABASE_SSL=false
+    DATABASE_FILENAME=
+    JWT_SECRET=9Z+zIhYrk5HKnHJA5xN/yw==
+
+    NODE_ENV=development
+kind: ConfigMap
+metadata:
+  annotations:
+    use-subpath: "true"
+  labels:
+    io.kompose.service: strapi
+  name: strapi-cm4

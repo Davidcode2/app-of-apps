@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.37.0 (HEAD)
+    argocd.argoproj.io/sync-wave: "2"
+  labels:
+    io.kompose.service: alemazung-app
+    app: alemazung-app
+  name: alemazung-app
+  namespace: alemazung
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: alemazung-app
+      app: alemazung-app
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.37.0 (HEAD)
+      labels:
+        io.kompose.service: alemazung-app
+        app: alemazung-app
+    spec:
+      containers:
+        - image: ghcr.io/davidcode2/dr-joy-alemazung:latest
+          name: alemazung-app
+      restartPolicy: Always

@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: joy-alemazung
+  namespace: argocd 
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/davidcode2/app-of-apps
+    targetRevision: HEAD
+    path: joy-alemazung 
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: joy-alemazung
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
