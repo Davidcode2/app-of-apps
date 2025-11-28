@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/davidcode2/app-of-apps
     targetRevision: HEAD
-    path: alemazung_cms 
+    path: joy-alemazung-cms 
   destination:
     server: https://kubernetes.default.svc
     namespace: joy-alemazung
