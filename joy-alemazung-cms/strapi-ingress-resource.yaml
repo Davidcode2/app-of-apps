@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: strapi-ingress
+  namespace: joy-alemazung
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  # This tells the NGINX controller to manage this Ingress
+  ingressClassName: nginx
+  rules:
+    - host: "api.alemazung.immoly.io"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: strapi-service
+                port:
+                  # This must match the 'port' (not targetPort) from the Service
+                  number: 80
+    - host: "www.api.alemazung.immoly.io"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: strapi-app-service
+                port:
+                  # This must match the 'port' (not targetPort) from the Service
+                  number: 80
+  tls:
+  - hosts:
+      - "api.alemazung.immoly.io"
+      - "www.api.alemazung.immoly.io"
+    secretName: immoly-tls

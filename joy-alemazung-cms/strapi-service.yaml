@@ -5,12 +5,12 @@ metadata:
     kompose.cmd: kompose convert
     kompose.version: 1.37.0 (HEAD)
   labels:
-    io.kompose.service: strapi
-  name: strapi
+    io.kompose.service: strapi-app-service
+  name: strapi-app-service
 spec:
   ports:
     - name: "1337"
       port: 1337
       targetPort: 1337
   selector:
-    io.kompose.service: strapi
+    io.kompose.service: alemazung-strapi-app

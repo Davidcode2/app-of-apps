@@ -5,13 +5,13 @@ metadata:
     kompose.cmd: kompose convert
     kompose.version: 1.37.0 (HEAD)
   labels:
-    io.kompose.service: alemazung-strapi
-  name: alemazung-strapi
+    io.kompose.service: alemazung-strapi-app
+  name: alemazung-strapi-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: alemazung-strapi
+      io.kompose.service: alemazung-strapi-app
   strategy:
     type: Recreate
   template:
@@ -20,7 +20,7 @@ spec:
         kompose.cmd: kompose convert
         kompose.version: 1.37.0 (HEAD)
       labels:
-        io.kompose.service: alemazung-strapi
+        io.kompose.service: alemazung-strapi-app
     spec:
       containers:
         - envFrom:
