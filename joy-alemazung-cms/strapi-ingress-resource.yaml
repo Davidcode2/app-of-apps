@@ -16,10 +16,10 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: strapi-service
+                name: strapi-app-service
                 port:
                   # This must match the 'port' (not targetPort) from the Service
-                  number: 80
+                  number: 1337
     - host: "www.api.alemazung.immoly.io"
       http:
         paths:
@@ -30,7 +30,7 @@ spec:
                 name: strapi-app-service
                 port:
                   # This must match the 'port' (not targetPort) from the Service
-                  number: 80
+                  number: 1337
   tls:
   - hosts:
       - "api.alemazung.immoly.io"
