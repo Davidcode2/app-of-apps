@@ -8,7 +8,7 @@ metadata:
     io.kompose.service: alemazung-app
     app: alemazung-app
   name: alemazung-app
-  namespace: alemazung
+  namespace: joy-alemazung
 spec:
   replicas: 1
   selector:
@@ -28,8 +28,6 @@ spec:
         - image: ghcr.io/davidcode2/dr-joy-alemazung:latest
           name: alemazung-app
           envFrom:
-            - configMapRef:
-                name: env
             - secretRef:
                 name: alemazung-strapi-secret
       restartPolicy: Always

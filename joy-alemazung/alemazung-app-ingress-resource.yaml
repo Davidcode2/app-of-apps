@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: alemazung-ingress
-  namespace: alemazung
+  namespace: joy-alemazung
   annotations:
     # We use a sync-wave to ensure this resource is only applied
     # *after* the service it depends on has been created by ArgoCD.
