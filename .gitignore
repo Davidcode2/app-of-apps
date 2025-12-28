@@ -1,0 +1,17 @@
+# External Secrets - Never commit AWS credentials
+external-secrets/aws-credentials-secret.yaml
+aws-credentials-secret.yaml
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+access-key
+secret-access-key
