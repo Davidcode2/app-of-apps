@@ -24,8 +24,8 @@ spec:
     spec:
       containers:
         - envFrom:
-            - configMapRef:
-                name: env
+            - secretRef:
+                name: alemazung-strapi-app-secret
           image: ghcr.io/davidcode2/alemazung_cms:latest
           name: schluesselmomente-cms
           ports:
