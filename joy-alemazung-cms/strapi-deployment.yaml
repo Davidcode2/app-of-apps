@@ -37,9 +37,6 @@ spec:
             - mountPath: /opt/package.json
               name: strapi-cm2
               subPath: package.json
-            - mountPath: /opt/app/.env
-              name: strapi-secrets
-              subPath: .env
             - mountPath: /opt/app/public/uploads
               name: strapi-uploads
       restartPolicy: Always
@@ -53,12 +50,6 @@ spec:
                 path: package.json
             name: strapi-cm2
           name: strapi-cm2
-        - name: strapi-secrets
-          secret:
-            secretName: strapi-secrets
-            items:
-              - key: .env
-                path: .env
         - name: strapi-uploads
           persistentVolumeClaim:
             claimName: strapi-uploads-pvc
