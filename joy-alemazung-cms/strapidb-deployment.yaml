@@ -23,16 +23,9 @@ spec:
         io.kompose.service: strapidb
     spec:
       containers:
-        - env:
-            - name: POSTGRES_DB
-              value: strapi
-            - name: POSTGRES_PASSWORD
-              value: pHyn@CpX*X5*oYc!J8LsJusoU
-            - name: POSTGRES_USER
-              value: strapi_user
-          envFrom:
-            - configMapRef:
-                name: env
+        - envFrom:
+            - secretRef:
+                name: alemazung-strapi-app-secret
           image: postgres:16.0-alpine
           name: strapidb
           volumeMounts:
