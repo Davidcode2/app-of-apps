@@ -1,5 +1,7 @@
 This is the app of apps repository for my personal and some professional projects.
 
+Whenever files are added or deleted, update the workspace structure below to reflect the current state.
+
 # Workspace structure
 .
 ├── access-key
@@ -45,14 +47,11 @@ This is the app of apps repository for my personal and some professional project
 ├── joy-alemazung-cms
 │   ├── strapi-cm0-configmap.yaml
 │   ├── strapi-cm2-configmap.yaml
-│   ├── strapi-cm4-configmap.yaml
-│   ├── strapi-cm5-configmap.yaml
 │   ├── strapi-data-persistentvolumeclaim.yaml
 │   ├── strapidb-deployment.yaml
 │   ├── strapi-deployment.yaml
 │   ├── strapi-ingress-resource.yaml
 │   ├── strapi-postgres-service.yaml
-│   ├── strapi-secret.yaml
 │   ├── strapi-service.yaml
 │   └── strapi-uploads-pvc.yaml
 ├── joy-alemazung-cms-app.yaml
