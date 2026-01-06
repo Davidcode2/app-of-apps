@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: jakob-lingel
+  namespace: argocd 
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/davidcode2/app-of-apps
+    targetRevision: HEAD
+    path: jakob-lingel
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: jakob-lingel
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
