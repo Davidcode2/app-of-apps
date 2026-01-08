@@ -26,6 +26,6 @@ spec:
         app: jakob-lingel-app
     spec:
       containers:
-        - image: ghcr.io/davidcode2/jakob-lingel:latest
+        - image: ghcr.io/davidcode2/jakob-lingel:1.0.0
           name: jakob-lingel-app
       restartPolicy: Always
