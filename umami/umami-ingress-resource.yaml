@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: umami-ingress
+  namespace: umami
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: "analytics.jakob-lingel.dev"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: umami
+                port:
+                  number: 3000
+    - host: "www.analytics.jakob-lingel.dev"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: umami
+                port:
+                  number: 3000
+  tls:
+  - hosts:
+      - "analytics.jakob-lingel.dev"
+      - "www.analytics.jakob-lingel.dev"
+    secretName: umami-tls
