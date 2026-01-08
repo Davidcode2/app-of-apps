@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: uptime-kuma
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    namespace: uptime-kuma
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://github.com/davidcode2/app-of-apps
+    targetRevision: HEAD
+    path: uptime-kuma/
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

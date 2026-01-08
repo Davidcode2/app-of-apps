@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: uptime-kuma-ingress
+  namespace: uptime-kuma
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: "uptime.jakob-lingel.dev"  # Change this to your desired domain
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: uptime-kuma-service
+                port:
+                  number: 3001
+  tls:
+    - hosts:
+        - "uptime.jakob-lingel.dev"  # Change this to your desired domain
+      secretName: uptime-kuma-tls

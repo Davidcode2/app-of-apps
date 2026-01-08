@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.37.0 (HEAD)
+    argocd.argoproj.io/sync-wave: "2"
+  labels:
+    io.kompose.service: uptime-kuma-app
+    app: uptime-kuma-app
+  name: uptime-kuma-app
+  namespace: uptime-kuma
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: uptime-kuma-app
+      app: uptime-kuma-app
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.37.0 (HEAD)
+      labels:
+        io.kompose.service: uptime-kuma-app
+        app: uptime-kuma-app
+    spec:
+        containers:
+          - image: louislam/uptime-kuma:2
+            name: uptime-kuma-app
+            ports:
+              - containerPort: 3001
+                protocol: TCP
+            volumeMounts:
+              - name: uptime-kuma-data
+                mountPath: /app/data
+        volumes:
+          - name: uptime-kuma-data
+            persistentVolumeClaim:
+              claimName: uptime-kuma-data
+        restartPolicy: Always
