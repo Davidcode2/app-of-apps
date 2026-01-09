@@ -16,23 +16,22 @@ spec:
         app: umami
     spec:
       containers:
-      - name: umami
-        image: ghcr.io/umami-software/umami:3.0.3
-        env:
-        - name: DATABASE_URL
-          value: postgresql://umami:hkubGU4uaTqP4mf4SX8EisgjN@umami-db:5432/umami
-        - name: DATABASE_TYPE
-          value: postgresql
-        - name: APP_SECRET
-          value: sgmZn8Qahu2B6NjaVMf85oi6X
-        ports:
-        - containerPort: 3000
-        livenessProbe:
-          httpGet:
-            path: /api/heartbeat
-            port: 3000
-          initialDelaySeconds: 30
-          periodSeconds: 5
-          timeoutSeconds: 5
-          failureThreshold: 5
+        - name: umami
+          image: docker.umami.is/umami-software/umami:postgresql-latest
+        - envFrom:
+            - secretRef:
+                name: umami-db-secret
+        - env:
+            - name: DATABASE_TYPE
+              value: postgresql
+          ports:
+            - containerPort: 3000
+          livenessProbe:
+            httpGet:
+              path: /api/heartbeat
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 5
       restartPolicy: Always
