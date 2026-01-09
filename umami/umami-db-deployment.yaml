@@ -8,7 +8,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "2"
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: umami-db
@@ -18,7 +18,7 @@ spec:
         app: umami-db
     spec:
       containers:
-        - image: postgres:18.1-alpine
+        - image: postgres:16.0-alpine
           name: umami-db
           envFrom:
             - secretRef:
@@ -29,7 +29,7 @@ spec:
             - name: POSTGRES_USER
               value: umami
             - name: PGDATA
-              value: /var/lib/postgresql/data/pgdata
+              value: /var/lib/postgresql/data
           ports:
             - containerPort: 5432
           volumeMounts:
