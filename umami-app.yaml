@@ -1,20 +1,20 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: umami-app
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: 'https://github.com/davidcode2/app-of-apps'
-    path: umami
-    targetRevision: HEAD
-  destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: umami
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+#apiVersion: argoproj.io/v1alpha1
+#kind: Application
+#metadata:
+#  name: umami-app
+#  namespace: argocd
+#spec:
+#  project: default
+#  source:
+#    repoURL: 'https://github.com/davidcode2/app-of-apps'
+#    path: umami
+#    targetRevision: HEAD
+#  destination:
+#    server: 'https://kubernetes.default.svc'
+#    namespace: umami
+#  syncPolicy:
+#    automated:
+#      prune: true
+#      selfHeal: true
+#    syncOptions:
+#      - CreateNamespace=true
