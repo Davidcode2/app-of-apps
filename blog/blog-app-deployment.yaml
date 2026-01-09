@@ -26,6 +26,6 @@ spec:
         app: blog-app
     spec:
       containers:
-        - image: ghcr.io/davidcode2/blog:latest
+        - image: ghcr.io/davidcode2/blog:1.0.1
           name: blog-app
       restartPolicy: Always
