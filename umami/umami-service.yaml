@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: umami
   namespace: umami
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
 spec:
   selector:
     app: umami

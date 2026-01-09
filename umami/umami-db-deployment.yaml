@@ -5,6 +5,8 @@ metadata:
   namespace: umami
   labels:
     app: umami-db
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   replicas: 1
   selector:
@@ -26,13 +28,12 @@ spec:
               value: umami
             - name: POSTGRES_USER
               value: umami
-            - name: PGDATA
-              value: /var/lib/postgresql/data/pgdata
           ports:
             - containerPort: 5432
           volumeMounts:
             - name: umami-db-data
               mountPath: /var/lib/postgresql/data
+              subPath: pgdata
           livenessProbe:
             exec:
               command:

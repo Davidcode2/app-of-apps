@@ -4,3 +4,5 @@ metadata:
   name: umami
   labels:
     name: umami
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"

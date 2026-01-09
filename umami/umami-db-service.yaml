@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: umami-db
   namespace: umami
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   selector:
     app: umami-db
