@@ -16,12 +16,12 @@ spec:
         app: umami
     spec:
       containers:
-        - name: umami
-          image: ghcr.io/umami-software/umami:latest
-        - envFrom:
+        - image: ghcr.io/umami-software/umami:latest
+          name: umami
+          envFrom:
             - secretRef:
                 name: umami-db-secret
-        - env:
+          env:
             - name: DATABASE_TYPE
               value: postgresql
           ports:
