@@ -28,12 +28,13 @@ spec:
               value: umami
             - name: POSTGRES_USER
               value: umami
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
           ports:
             - containerPort: 5432
           volumeMounts:
             - name: umami-db-data
               mountPath: /var/lib/postgresql/data
-              subPath: pgdata
           livenessProbe:
             exec:
               command:
