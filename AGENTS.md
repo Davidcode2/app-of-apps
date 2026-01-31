@@ -395,8 +395,9 @@ argocd app rollback <app-name> <revision>
 - **blog** - Jakob's personal blog (Ghost)
 - **immoly** - Real estate calculation tool
 - **schluesselmomente** - Client website (frontend + backend)
+- **schluesselmomente-cms** - Strapi CMS for Schlüsselmomente (admin.schluesselmomente-freiburg.de)
 - **joy-alemazung** - Client website (Ghost)
-- **joy-alemazung-cms** - Strapi CMS for above
+- **joy-alemazung-cms** - Strapi CMS for Joy Alemazung
 - **umami** - Web analytics
 - **uptime-kuma** - Uptime monitoring
 

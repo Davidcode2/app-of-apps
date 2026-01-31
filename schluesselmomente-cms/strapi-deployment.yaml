@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.37.0 (HEAD)
+  labels:
+    io.kompose.service: schluesselmomente-strapi-app
+  name: schluesselmomente-strapi-app
+  namespace: schluesselmomente-cms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: schluesselmomente-strapi-app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.37.0 (HEAD)
+      labels:
+        io.kompose.service: schluesselmomente-strapi-app
+    spec:
+      containers:
+        - envFrom:
+            - secretRef:
+                name: schluesselmomente-strapi-app-secret
+          image: ghcr.io/davidcode2/schluesselmomente-cms:latest
+          name: schluesselmomente-cms
+          ports:
+            - containerPort: 1337
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /opt/app/config
+              name: strapi-cm0
+            - mountPath: /opt/package.json
+              name: strapi-cm2
+              subPath: package.json
+            - mountPath: /opt/app/public/uploads
+              name: strapi-uploads
+      restartPolicy: Always
+      volumes:
+        - configMap:
+            name: strapi-cm0
+          name: strapi-cm0
+        - configMap:
+            items:
+              - key: package.json
+                path: package.json
+            name: strapi-cm2
+          name: strapi-cm2
+        - name: strapi-uploads
+          persistentVolumeClaim:
+            claimName: strapi-uploads-pvc
