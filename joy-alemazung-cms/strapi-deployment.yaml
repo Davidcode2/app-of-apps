@@ -27,6 +27,7 @@ spec:
             - secretRef:
                 name: alemazung-strapi-app-secret
           image: ghcr.io/davidcode2/alemazung_cms:latest
+          imagePullPolicy: Always
           name: schluesselmomente-cms
           ports:
             - containerPort: 1337
