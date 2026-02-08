@@ -16,7 +16,7 @@ spec:
         app: home-at-sea-frontend
     spec:
       containers:
-        - image: ghcr.io/davidcode2/home_at_sea-frontend:latest
+        - image: ghcr.io/davidcode2/home-at-sea:latest
           name: home-at-sea-frontend
           ports:
             - containerPort: 80

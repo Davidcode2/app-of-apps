@@ -16,7 +16,7 @@ spec:
         app: home-at-sea-strapi
     spec:
       containers:
-        - image: ghcr.io/davidcode2/home_at_sea-backend:latest
+        - image: ghcr.io/davidcode2/home-at-sea-cms:latest
           name: home-at-sea-strapi
           envFrom:
             - secretRef:
