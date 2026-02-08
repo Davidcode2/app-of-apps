@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: home-at-sea-postgres
+  name: home-at-sea-postgres
+  namespace: home-at-sea
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: home-at-sea-postgres
+  template:
+    metadata:
+      labels:
+        app: home-at-sea-postgres
+    spec:
+      containers:
+        - image: postgres:16.0-alpine
+          name: home-at-sea-postgres
+          envFrom:
+            - secretRef:
+                name: home-at-sea-strapi-secret
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-data
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: home-at-sea-postgres-pvc
+      restartPolicy: Always

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: home-at-sea-strapi-service
+  namespace: home-at-sea
+spec:
+  type: ClusterIP
+  ports:
+    - name: "1337"
+      port: 1337
+      targetPort: 1337
+  selector:
+    app: home-at-sea-strapi

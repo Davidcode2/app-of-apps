@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: home-at-sea-strapi-ingress
+  namespace: home-at-sea
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: "api.homeatsea.jakob-lingel.dev"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: home-at-sea-strapi-service
+                port:
+                  number: 1337
+  tls:
+    - hosts:
+        - "api.homeatsea.jakob-lingel.dev"
+      secretName: home-at-sea-strapi-tls

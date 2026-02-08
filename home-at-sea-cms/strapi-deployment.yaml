@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: home-at-sea-strapi
+  name: home-at-sea-strapi
+  namespace: home-at-sea
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: home-at-sea-strapi
+  template:
+    metadata:
+      labels:
+        app: home-at-sea-strapi
+    spec:
+      containers:
+        - image: ghcr.io/davidcode2/home_at_sea-backend:latest
+          name: home-at-sea-strapi
+          envFrom:
+            - secretRef:
+                name: home-at-sea-strapi-secret
+          ports:
+            - containerPort: 1337
+          volumeMounts:
+            - mountPath: /opt/app/public/uploads
+              name: strapi-uploads
+      volumes:
+        - name: strapi-uploads
+          persistentVolumeClaim:
+            claimName: home-at-sea-strapi-uploads-pvc
+      restartPolicy: Always
