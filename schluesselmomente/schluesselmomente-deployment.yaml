@@ -25,6 +25,6 @@ spec:
         app: schluesselmomente-fe
     spec:
       containers:
-        - image: ghcr.io/davidcode2/schluesselmomente:1.0.2
+        - image: ghcr.io/davidcode2/schluesselmomente:1.0.3
           name: schluesselmomente
       restartPolicy: Always
