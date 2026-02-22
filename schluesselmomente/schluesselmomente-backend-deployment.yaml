@@ -27,4 +27,7 @@ spec:
       containers:
         - image: ghcr.io/davidcode2/schluesselmomente-be:latest
           name: schluesselmomente-be
+          envFrom:
+            - secretRef:
+                name: schluesselmomente-be-secret
       restartPolicy: Always

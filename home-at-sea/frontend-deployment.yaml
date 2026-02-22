@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: home-at-sea-frontend
+  name: home-at-sea-frontend
+  namespace: home-at-sea
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: home-at-sea-frontend
+  template:
+    metadata:
+      labels:
+        app: home-at-sea-frontend
+    spec:
+      containers:
+        - image: ghcr.io/davidcode2/home-at-sea:0.0.5
+          name: home-at-sea-frontend
+          ports:
+            - containerPort: 80
+      restartPolicy: Always
