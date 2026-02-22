@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: ghcr.io/davidcode2/teachme-backend:latest
+          image: ghcr.io/davidcode2/teachme-backend:0.0.2
           ports:
             - containerPort: 3000
               protocol: TCP
