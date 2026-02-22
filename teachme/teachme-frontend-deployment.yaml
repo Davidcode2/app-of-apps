@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teachme-frontend
+  namespace: teachme
+  labels:
+    app: teachme-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: teachme-frontend
+  template:
+    metadata:
+      labels:
+        app: teachme-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: ghcr.io/davidcode2/teachme-frontend:latest
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: teachme-frontend-config
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "200m"

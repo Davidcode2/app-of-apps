@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: teachme-backend-config
+  namespace: teachme
+data:
+  NODE_ENV: "production"
+  PORT: "3000"
+  KEYCLOAK_URL: "https://auth.teachly.store"
+  KEYCLOAK_REALM: "teachly"
+  FE_URL: "https://app.teachly.store"
+  DEV_FE_URL: "http://localhost:5173"
+  KEYCLOAK_USERINFO_ENDPOINT: "/protocol/openid-connect/userinfo"
+  KEYCLOAK_CERTS_ENDPOINT: "/protocol/openid-connect/certs"
