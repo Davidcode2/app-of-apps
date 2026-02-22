@@ -26,9 +26,16 @@ spec:
           env:
             - name: POSTGRES_DB
               value: "teachme_db"
-          envFrom:
-            - secretRef:
-                name: teachme-backend-secret
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: teachme-backend-secret
+                  key: DB_USERNAME
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: teachme-backend-secret
+                  key: DB_PASSWORD
           volumeMounts:
             - name: data
               mountPath: /var/lib/postgresql/data
