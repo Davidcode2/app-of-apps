@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: teachme-frontend-config
+  namespace: teachme
+data:
+  # Runtime configuration can be injected here
+  # API_URL will need to be set to the backend ingress URL
+  VITE_API_URL: "https://api.teachme.io"
