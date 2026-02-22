@@ -11,7 +11,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: auth.teachme.io
+    - host: auth.teachly.store
       http:
         paths:
           - path: /
@@ -23,5 +23,5 @@ spec:
                   number: 8080
   tls:
     - hosts:
-        - auth.teachme.io
+        - auth.teachly.store
       secretName: teachme-keycloak-tls
