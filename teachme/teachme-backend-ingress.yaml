@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: teachme-backend-ingress
+  namespace: teachme
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: api.teachme.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: teachme-backend-service
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - api.teachme.io
+      secretName: teachme-backend-tls

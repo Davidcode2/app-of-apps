@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teachme-backend
+  namespace: teachme
+  labels:
+    app: teachme-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: teachme-backend
+  template:
+    metadata:
+      labels:
+        app: teachme-backend
+    spec:
+      containers:
+        - name: backend
+          image: ghcr.io/davidcode2/teachme-backend:latest
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: teachme-backend-config
+            - secretRef:
+                name: teachme-backend-secret
+          volumeMounts:
+            - name: assets
+              mountPath: /app/assets
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+      volumes:
+        - name: assets
+          persistentVolumeClaim:
+            claimName: teachme-assets-pvc
