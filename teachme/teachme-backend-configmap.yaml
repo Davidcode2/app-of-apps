@@ -6,6 +6,9 @@ metadata:
 data:
   NODE_ENV: "production"
   PORT: "3000"
+  DB_HOST: "teachme-backend-db-service"
+  DB_PORT: "5432"
+  DB_DATABASE: "teachme_db"
   KEYCLOAK_URL: "https://auth.teachly.store"
   KEYCLOAK_REALM: "teachly"
   FE_URL: "https://app.teachly.store"

@@ -17,6 +17,8 @@ spec:
     spec:
       containers:
         - name: keycloak
+          # NOTE: This image tag is auto-updated by GitHub Actions
+          # Do not manually edit - the workflow will overwrite this
           image: ghcr.io/davidcode2/teachme-keycloak:latest
           ports:
             - containerPort: 8080
