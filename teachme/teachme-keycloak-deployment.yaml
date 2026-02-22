@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teachme-keycloak
+  namespace: teachme
+  labels:
+    app: teachme-keycloak
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: teachme-keycloak
+  template:
+    metadata:
+      labels:
+        app: teachme-keycloak
+    spec:
+      containers:
+        - name: keycloak
+          image: ghcr.io/davidcode2/teachme-keycloak:latest
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+            - containerPort: 9000
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: teachme-keycloak-config
+            - secretRef:
+                name: teachme-keycloak-secret
+          env:
+            - name: KC_DB_URL
+              value: "jdbc:postgresql://teachme-keycloak-db-service:5432/keycloak"
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"

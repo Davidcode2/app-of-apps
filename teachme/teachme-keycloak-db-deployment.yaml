@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teachme-keycloak-db
+  namespace: teachme
+  labels:
+    app: teachme-keycloak-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: teachme-keycloak-db
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: teachme-keycloak-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16-alpine
+          ports:
+            - containerPort: 5432
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: teachme-keycloak-db-secret
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "250m"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: teachme-keycloak-db-pvc

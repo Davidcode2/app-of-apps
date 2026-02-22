@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: teachme-keycloak-config
+  namespace: teachme
+data:
+  KC_HOSTNAME: "auth.teachme.io"
+  KC_PROXY: "edge"
+  KC_HTTP_ENABLED: "true"
+  KC_HEALTH_ENABLED: "true"
+  KC_METRICS_ENABLED: "true"
+  KC_DB: "postgres"
+  KC_DB_SCHEMA: "public"
