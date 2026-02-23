@@ -6,12 +6,24 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "1"
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: nginx
   rules:
     - host: app.teachly.store
       http:
         paths:
+          # API requests → backend service
+          # Matches /api/* and rewrites to remove /api prefix
+          - path: /api(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: teachme-backend-service
+                port:
+                  number: 80
+          # All other requests → frontend service
           - path: /
             pathType: Prefix
             backend:
