@@ -19,7 +19,7 @@ spec:
         - name: frontend
           # NOTE: This image tag is auto-updated by GitHub Actions
           # Do not manually edit - the workflow will overwrite this
-          image: ghcr.io/davidcode2/teachme-frontend:0.0.12
+          image: ghcr.io/davidcode2/teachme-frontend:0.0.13
           ports:
             - containerPort: 80
               protocol: TCP
