@@ -16,4 +16,3 @@ spec:
       protocol: TCP
       name: http
   type: ClusterIP
-  clusterIP: None
