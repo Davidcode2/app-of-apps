@@ -18,6 +18,7 @@ spec:
     spec:
       hostPID: true
       hostNetwork: true
+      serviceAccountName: rwatch-agent
       containers:
         - name: agent
           image: ghcr.io/davidcode2/rwatch-agent:0.1.6
