@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: business-website-ingress
+  namespace: business-website
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: nginx
+spec:
+  tls:
+  - hosts:
+    - jakob-lingel.dev
+    secretName: business-website-tls
+  rules:
+  - host: jakob-lingel.dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: business-website
+            port:
+              number: 80

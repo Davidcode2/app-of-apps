@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: business-website
+  namespace: business-website
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: business-website
+  template:
+    metadata:
+      labels:
+        app: business-website
+    spec:
+      containers:
+      - name: business-website
+        image: ghcr.io/davidcode2/business-website:VERSION
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
