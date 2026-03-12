@@ -12,7 +12,7 @@ spec:
   # This tells the NGINX controller to manage this Ingress
   ingressClassName: nginx
   rules:
-    - host: "jakob-lingel.dev"
+    - host: "portfolio.jakob-lingel.dev"
       http:
         paths:
           - path: /
@@ -23,7 +23,7 @@ spec:
                 port:
                   # This must match the 'port' (not targetPort) from the Service
                   number: 80
-    - host: "www.jakob-lingel.dev"
+    - host: "www.portfolio.jakob-lingel.dev"
       http:
         paths:
           - path: /
@@ -36,6 +36,6 @@ spec:
                   number: 80
   tls:
   - hosts:
-      - "jakob-lingel.dev"
-      - "www.jakob-lingel.dev"
+      - "portfolio.jakob-lingel.dev"
+      - "www.portfolio.jakob-lingel.dev"
     secretName: jakob-lingel-tls
