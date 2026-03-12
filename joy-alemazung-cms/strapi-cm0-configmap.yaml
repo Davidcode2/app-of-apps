@@ -127,5 +127,4 @@ data:
 kind: ConfigMap
 metadata:
   labels:
-    io.kompose.service: strapi
   name: strapi-cm0

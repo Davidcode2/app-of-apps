@@ -50,5 +50,4 @@ metadata:
   annotations:
     use-subpath: "true"
   labels:
-    io.kompose.service: strapi
   name: strapi-cm2

@@ -2,25 +2,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.37.0 (HEAD)
   labels:
-    io.kompose.service: alemazung-strapi-app
   name: alemazung-strapi-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: alemazung-strapi-app
   strategy:
     type: Recreate
   template:
     metadata:
       annotations:
-        kompose.cmd: kompose convert
-        kompose.version: 1.37.0 (HEAD)
       labels:
-        io.kompose.service: alemazung-strapi-app
     spec:
       containers:
         - envFrom:
@@ -32,6 +25,21 @@ spec:
           ports:
             - containerPort: 1337
               protocol: TCP
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 300m
+              memory: 256Mi
+          readinessProbe:
+            httpGet:
+              path: /admin
+              port: 1337
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
           volumeMounts:
             - mountPath: /opt/app/config
               name: strapi-cm0

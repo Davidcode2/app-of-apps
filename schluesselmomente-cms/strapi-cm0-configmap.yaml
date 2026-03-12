@@ -116,6 +116,5 @@ data:
 kind: ConfigMap
 metadata:
   labels:
-    io.kompose.service: schluesselmomente-strapi
   name: strapi-cm0
   namespace: schluesselmomente-cms

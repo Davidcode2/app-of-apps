@@ -2,7 +2,6 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    io.kompose.service: strapi-app-service
   name: strapi-app-service
   namespace: schluesselmomente-cms
 spec:
@@ -11,4 +10,3 @@ spec:
       port: 1337
       targetPort: 1337
   selector:
-    io.kompose.service: schluesselmomente-strapi-app

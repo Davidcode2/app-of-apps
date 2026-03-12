@@ -50,6 +50,5 @@ metadata:
   annotations:
     use-subpath: "true"
   labels:
-    io.kompose.service: schluesselmomente-strapi
   name: strapi-cm2
   namespace: schluesselmomente-cms

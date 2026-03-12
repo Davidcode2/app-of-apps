@@ -2,11 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.37.0 (HEAD)
     argocd.argoproj.io/sync-wave: "2"
   labels:
-    io.kompose.service: uptime-kuma-app
     app: uptime-kuma-app
   name: uptime-kuma-app
   namespace: uptime-kuma
@@ -14,15 +11,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: uptime-kuma-app
       app: uptime-kuma-app
   template:
     metadata:
       annotations:
-        kompose.cmd: kompose convert
-        kompose.version: 1.37.0 (HEAD)
       labels:
-        io.kompose.service: uptime-kuma-app
         app: uptime-kuma-app
     spec:
         containers:
@@ -31,6 +24,21 @@ spec:
             ports:
               - containerPort: 3001
                 protocol: TCP
+            resources:
+              requests:
+                cpu: 100m
+                memory: 128Mi
+              limits:
+                cpu: 200m
+                memory: 256Mi
+            readinessProbe:
+              httpGet:
+                path: /
+                port: 3001
+              initialDelaySeconds: 30
+              periodSeconds: 10
+              timeoutSeconds: 5
+              failureThreshold: 3
             volumeMounts:
               - name: uptime-kuma-data
                 mountPath: /app/data

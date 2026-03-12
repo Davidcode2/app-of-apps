@@ -4,7 +4,6 @@ metadata:
   name: immoly-postgres-service
   namespace: immoly
   labels:
-    io.kompose.service: immoly-postgres-service
 spec:
   type: ClusterIP
   ports:
@@ -12,4 +11,3 @@ spec:
     targetPort: 5432
     protocol: TCP
   selector:
-    io.kompose.service: immoly-postgres

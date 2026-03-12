@@ -4,7 +4,6 @@ metadata:
   name: strapi-postgres-service
   namespace: joy-alemazung
   labels:
-    io.kompose.service: strapi-postgres-service
 spec:
   type: ClusterIP
   ports:
@@ -12,4 +11,3 @@ spec:
     targetPort: 5432
     protocol: TCP
   selector:
-    io.kompose.service: strapidb

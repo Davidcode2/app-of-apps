@@ -2,10 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.37.0 (HEAD)
   labels:
-    io.kompose.service: schluesselmomente-be
     app: schluesselmomente-be
   name: schluesselmomente-be
   namespace: schluesselmomente
@@ -13,15 +10,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: schluesselmomente-be
       app: schluesselmomente-be
   template:
     metadata:
       annotations:
-        kompose.cmd: kompose convert
-        kompose.version: 1.37.0 (HEAD)
       labels:
-        io.kompose.service: schluesselmomente-be
         app: schluesselmomente-be
     spec:
       containers:
@@ -30,4 +23,21 @@ spec:
           envFrom:
             - secretRef:
                 name: schluesselmomente-be-secret
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+          ports:
+            - containerPort: 99
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 99
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
       restartPolicy: Always

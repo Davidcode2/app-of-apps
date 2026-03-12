@@ -23,6 +23,21 @@ spec:
                 name: home-at-sea-strapi-secret
           ports:
             - containerPort: 1337
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 300m
+              memory: 256Mi
+          readinessProbe:
+            httpGet:
+              path: /admin
+              port: 1337
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
           volumeMounts:
             - mountPath: /opt/app/public/uploads
               name: strapi-uploads

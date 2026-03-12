@@ -8,6 +8,5 @@ data:
 kind: ConfigMap
 metadata:
   labels:
-    io.kompose.service: immoly-app-env
   name: env
   namespace: immoly
