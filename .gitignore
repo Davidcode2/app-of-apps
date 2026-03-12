@@ -15,3 +15,7 @@ Thumbs.db
 
 access-key
 secret-access-key
+
+# Dolt database files (added by bd init)
+.dolt/
+*.db
