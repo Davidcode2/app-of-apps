@@ -10,10 +10,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      io.kompose.service: alemazung-app
       app: alemazung-app
   template:
     metadata:
       labels:
+        io.kompose.service: alemazung-app
         app: alemazung-app
     spec:
       containers:

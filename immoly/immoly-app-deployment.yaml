@@ -11,10 +11,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      io.kompose.service: immoly-app
       app: immoly-app
   template:
     metadata:
       labels:
+        io.kompose.service: immoly-app
         app: immoly-app
     spec:
       containers:

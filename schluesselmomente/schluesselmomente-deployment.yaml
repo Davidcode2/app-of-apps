@@ -10,10 +10,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      io.kompose.service: schluesselmomente-fe
       app: schluesselmomente-fe
   template:
     metadata:
       labels:
+        io.kompose.service: schluesselmomente-fe
         app: schluesselmomente-fe
     spec:
       containers:

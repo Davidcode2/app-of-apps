@@ -11,10 +11,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      io.kompose.service: jakob-lingel-app
       app: jakob-lingel-app
   template:
     metadata:
       labels:
+        io.kompose.service: jakob-lingel-app
         app: jakob-lingel-app
     spec:
       containers:

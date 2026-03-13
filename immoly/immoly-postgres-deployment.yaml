@@ -11,12 +11,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      io.kompose.service: immoly-postgres
       app: immoly-postgres
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
+        io.kompose.service: immoly-postgres
         app: immoly-postgres
     spec:
       containers:
