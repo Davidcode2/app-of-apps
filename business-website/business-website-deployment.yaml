@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: business-website
-        image: ghcr.io/davidcode2/business-website:0.0.25
+        image: ghcr.io/davidcode2/business-website:0.0.26
         ports:
         - containerPort: 8080
         resources:
