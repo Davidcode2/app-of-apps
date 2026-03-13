@@ -4,7 +4,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "0"
   labels:
-    app: immoly-postgres
+    io.kompose.service: immoly-postgres
   name: immoly-postgres
   namespace: immoly
 spec:
@@ -12,14 +12,12 @@ spec:
   selector:
     matchLabels:
       io.kompose.service: immoly-postgres
-      app: immoly-postgres
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
         io.kompose.service: immoly-postgres
-        app: immoly-postgres
     spec:
       containers:
         - image: postgres:16.0-alpine
