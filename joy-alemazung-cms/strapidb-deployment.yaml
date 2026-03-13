@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.37.0 (HEAD)
   labels:
     io.kompose.service: strapidb
   name: strapidb
@@ -15,6 +17,8 @@ spec:
   template:
     metadata:
       annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.37.0 (HEAD)
       labels:
         io.kompose.service: strapidb
     spec:
@@ -24,13 +28,6 @@ spec:
                 name: alemazung-strapi-app-secret
           image: postgres:16.0-alpine
           name: strapidb
-          resources:
-            requests:
-              cpu: 100m
-              memory: 256Mi
-            limits:
-              cpu: 500m
-              memory: 512Mi
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: strapi-data
