@@ -32,12 +32,4 @@ spec:
               memory: 256Mi
           ports:
             - containerPort: 99
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 99
-            initialDelaySeconds: 10
-            periodSeconds: 5
-            timeoutSeconds: 3
-            failureThreshold: 3
       restartPolicy: Always

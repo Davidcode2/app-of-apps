@@ -27,12 +27,4 @@ spec:
             limits:
               cpu: 200m
               memory: 256Mi
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 80
-            initialDelaySeconds: 10
-            periodSeconds: 5
-            timeoutSeconds: 3
-            failureThreshold: 3
       restartPolicy: Always

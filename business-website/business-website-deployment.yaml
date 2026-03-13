@@ -25,11 +25,3 @@ spec:
           requests:
             memory: "64Mi"
             cpu: "50m"
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 8080
-          initialDelaySeconds: 10
-          periodSeconds: 5
-          timeoutSeconds: 3
-          failureThreshold: 3

@@ -43,12 +43,4 @@ spec:
             periodSeconds: 5
             timeoutSeconds: 5
             failureThreshold: 5
-          readinessProbe:
-            httpGet:
-              path: /api/heartbeat
-              port: 3000
-            initialDelaySeconds: 5
-            periodSeconds: 5
-            timeoutSeconds: 3
-            failureThreshold: 3
       restartPolicy: Always

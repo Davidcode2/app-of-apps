@@ -32,16 +32,6 @@ spec:
             limits:
               cpu: 300m
               memory: 256Mi
-          readinessProbe:
-            httpGet:
-              path: /admin
-              port: 1337
-            initialDelaySeconds: 30
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 3
-          volumeMounts:
-            - mountPath: /opt/app/config
               name: strapi-cm0
             - mountPath: /opt/package.json
               name: strapi-cm2
