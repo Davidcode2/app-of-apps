@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   annotations:
   labels:
+    io.kompose.service: schluesselmomente-be
     app: schluesselmomente-be
   name: schluesselmomente-be
   namespace: schluesselmomente
@@ -15,6 +16,7 @@ spec:
   template:
     metadata:
       labels:
+        io.kompose.service: schluesselmomente-be
         app: schluesselmomente-be
     spec:
       containers:
