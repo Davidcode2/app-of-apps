@@ -13,7 +13,6 @@ spec:
       app: alemazung-app
   template:
     metadata:
-      annotations:
       labels:
         app: alemazung-app
     spec:

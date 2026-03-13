@@ -13,7 +13,6 @@ spec:
       app: schluesselmomente-fe
   template:
     metadata:
-      annotations:
       labels:
         app: schluesselmomente-fe
     spec:

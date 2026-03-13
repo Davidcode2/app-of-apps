@@ -4,18 +4,20 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "0"
   labels:
+    app: immoly-postgres
   name: immoly-postgres
   namespace: immoly
 spec:
   replicas: 1
   selector:
     matchLabels:
+      app: immoly-postgres
   strategy:
     type: Recreate
   template:
     metadata:
-      annotations:
       labels:
+        app: immoly-postgres
     spec:
       containers:
         - image: postgres:16.0-alpine
