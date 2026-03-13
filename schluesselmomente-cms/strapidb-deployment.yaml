@@ -3,18 +3,21 @@ kind: Deployment
 metadata:
   annotations:
   labels:
+    io.kompose.service: strapidb
   name: strapidb
   namespace: schluesselmomente-cms
 spec:
   replicas: 1
   selector:
     matchLabels:
+      io.kompose.service: strapidb
   strategy:
     type: Recreate
   template:
     metadata:
       annotations:
       labels:
+        io.kompose.service: strapidb
     spec:
       containers:
         - envFrom:
