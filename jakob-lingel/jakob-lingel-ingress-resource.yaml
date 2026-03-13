@@ -23,19 +23,7 @@ spec:
                 port:
                   # This must match the 'port' (not targetPort) from the Service
                   number: 80
-    - host: "www.portfolio.jakob-lingel.dev"
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: jakob-lingel-app-service
-                port:
-                  # This must match the 'port' (not targetPort) from the Service
-                  number: 80
   tls:
   - hosts:
       - "portfolio.jakob-lingel.dev"
-      - "www.portfolio.jakob-lingel.dev"
     secretName: jakob-lingel-tls
