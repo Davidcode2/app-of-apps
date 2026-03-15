@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mimis-kreativstudio
+  namespace: mimis-kreativstudio
+spec:
+  selector:
+    app: mimis-kreativstudio
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
