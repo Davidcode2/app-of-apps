@@ -10,3 +10,4 @@ spec:
       port: 1337
       targetPort: 1337
   selector:
+    io.kompose.service: schluesselmomente-strapi-app
