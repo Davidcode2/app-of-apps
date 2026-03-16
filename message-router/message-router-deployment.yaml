@@ -26,7 +26,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: message-router
-          image: ghcr.io/davidcode2/message-router:1.0.2
+          image: ghcr.io/davidcode2/message-router:1.0.3
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
