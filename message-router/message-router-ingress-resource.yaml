@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: message-router-ingress
+  namespace: message-router
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: nginx
+spec:
+  tls:
+    - hosts:
+        - notifications.jakob-lingel.dev
+      secretName: message-router-tls
+  rules:
+    - host: notifications.jakob-lingel.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: message-router
+                port:
+                  number: 80
