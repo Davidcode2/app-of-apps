@@ -19,3 +19,8 @@ secret-access-key
 # Dolt database files (added by bd init)
 .dolt/
 *.db
+
+# bd/npm files that shouldn't be in root
+package.json
+package-lock.json
+renovate.json

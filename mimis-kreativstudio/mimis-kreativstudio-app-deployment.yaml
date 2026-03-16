@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mimis-kreativstudio
+  namespace: mimis-kreativstudio
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mimis-kreativstudio
+  template:
+    metadata:
+      labels:
+        app: mimis-kreativstudio
+    spec:
+      containers:
+      - name: mimis-kreativstudio
+        image: ghcr.io/davidcode2/mimis-kreativstudio:0.0.21
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
