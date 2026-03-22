@@ -93,8 +93,8 @@ spec:
                 - ALL
       volumes:
         - name: config
-          secret:
-            secretName: mimis-kreativstudio-secret
+          configMap:
+            name: message-router-config
             items:
               - key: sites.json
                 path: sites.json
