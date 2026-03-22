@@ -93,8 +93,8 @@ spec:
                 - ALL
       volumes:
         - name: config
-          configMap:
-            name: message-router-config
+          secret:
+            secretName: message-router-sites-secret
             items:
               - key: sites.json
                 path: sites.json
