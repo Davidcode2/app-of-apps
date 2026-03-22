@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: mimis-kreativstudio
-        image: ghcr.io/davidcode2/mimis-kreativstudio:0.0.25
+        image: ghcr.io/davidcode2/mimis-kreativstudio:0.0.26
         ports:
         - containerPort: 8080
         resources:
