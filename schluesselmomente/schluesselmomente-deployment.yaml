@@ -19,7 +19,7 @@ spec:
         app: schluesselmomente-fe
     spec:
       containers:
-        - image: ghcr.io/davidcode2/schluesselmomente:1.0.5
+        - image: ghcr.io/davidcode2/schluesselmomente:1.0.6
           name: schluesselmomente
           resources:
             requests:
