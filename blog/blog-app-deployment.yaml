@@ -20,7 +20,7 @@ spec:
         app: blog-app
     spec:
       containers:
-        - image: ghcr.io/davidcode2/blog:1.0.3
+        - image: ghcr.io/davidcode2/blog:1.0.4
           name: blog-app
           resources:
             requests:
