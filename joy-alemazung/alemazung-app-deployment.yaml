@@ -19,7 +19,7 @@ spec:
         app: alemazung-app
     spec:
       containers:
-        - image: ghcr.io/davidcode2/dr-joy-alemazung:0.13.23
+        - image: ghcr.io/davidcode2/dr-joy-alemazung:0.13.24
           name: alemazung-app
           envFrom:
             - secretRef:
