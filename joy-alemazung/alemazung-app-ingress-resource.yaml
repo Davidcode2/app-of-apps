@@ -34,8 +34,31 @@ spec:
                 port:
                   # This must match the 'port' (not targetPort) from the Service
                   number: 80
+    - host: "alemazung.de"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: alemazung-app-service
+                port:
+                  number: 80
+    - host: "www.alemazung.de"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: alemazung-app-service
+                port:
+                  # This must match the 'port' (not targetPort) from the Service
+                  number: 80
   tls:
   - hosts:
       - "alemazung.immoly.io"
       - "www.alemazung.immoly.io"
+      #- "alemazung.de"
+      #- "www.alemazung.de"
     secretName: alemazung-tls
