@@ -54,6 +54,6 @@ spec:
   - hosts:
       - "api.alemazung.immoly.io"
       - "www.api.alemazung.immoly.io"
-      - "api.alemazung.de"
-      - "www.api.alemazung.de"
+      #- "api.alemazung.de"
+      #- "www.api.alemazung.de"
     secretName: alemazung-cms-tls
