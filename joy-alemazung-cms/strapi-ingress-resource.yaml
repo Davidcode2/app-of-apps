@@ -54,7 +54,6 @@ spec:
   - hosts:
       - "api.alemazung.immoly.io"
       - "www.api.alemazung.immoly.io"
-      # Once DNS is pointed to 49.13.45.106, add the lines below here:
-      # - "api.alemazung.de"
-      # - "www.api.alemazung.de"
+      - "api.alemazung.de"
+      - "www.api.alemazung.de"
     secretName: immoly-tls
