@@ -56,4 +56,4 @@ spec:
       - "www.api.alemazung.immoly.io"
       - "api.alemazung.de"
       - "www.api.alemazung.de"
-    secretName: immoly-tls
+    secretName: alemazung-cms-tls
