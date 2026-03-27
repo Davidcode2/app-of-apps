@@ -34,9 +34,9 @@ spec:
               name: http
           env:
             - name: PAPERLESS_REDIS
-              value: "redis://paperless-redis:6379"
+              value: "redis://paperless-redis.paperless-ngx.svc.cluster.local:6379"
             - name: PAPERLESS_DBHOST
-              value: "paperless-postgres"
+              value: "paperless-postgres.paperless-ngx.svc.cluster.local"
             - name: PAPERLESS_DBNAME
               value: "paperless"
             - name: PAPERLESS_DBUSER
