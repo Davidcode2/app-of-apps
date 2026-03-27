@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paperless-tika
+  namespace: paperless-ngx
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: paperless-tika
+  template:
+    metadata:
+      labels:
+        app: paperless-tika
+    spec:
+      nodeSelector:
+        node-type: homelab
+      tolerations:
+        - key: "dedicated"
+          operator: "Equal"
+          value: "homelab"
+          effect: "NoSchedule"
+      containers:
+        - name: tika
+          image: apache/tika:latest-full
+          ports:
+            - containerPort: 9998
+              name: http
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "300m"
+            limits:
+              memory: "1Gi"
+              cpu: "600m"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 9998
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 9998
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 3
