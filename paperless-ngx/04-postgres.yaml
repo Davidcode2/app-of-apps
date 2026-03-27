@@ -17,6 +17,10 @@ spec:
       labels:
         app: paperless-postgres
     spec:
+      dnsConfig:
+        options:
+          - name: ndots
+            value: "2"
       nodeSelector:
         node-type: homelab
       tolerations:

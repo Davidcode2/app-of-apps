@@ -15,6 +15,10 @@ spec:
       labels:
         app: paperless-redis
     spec:
+      dnsConfig:
+        options:
+          - name: ndots
+            value: "2"
       nodeSelector:
         node-type: homelab
       tolerations:
