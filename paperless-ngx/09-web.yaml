@@ -41,7 +41,7 @@ spec:
               value: "paperless"
             - name: PAPERLESS_DBUSER
               value: "paperless"
-            - name: PAPERLESS_DBPASSWORD
+            - name: PAPERLESS_DBPASS
               valueFrom:
                 secretKeyRef:
                   name: paperless-secret
