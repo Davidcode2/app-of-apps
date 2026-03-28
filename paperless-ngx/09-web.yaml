@@ -34,9 +34,9 @@ spec:
               name: http
           env:
             - name: PAPERLESS_REDIS
-              value: "redis://paperless-redis.paperless-ngx.svc.cluster.local:6379"
+              value: "redis://10.43.43.160:6379"
             - name: PAPERLESS_DBHOST
-              value: "paperless-postgres.paperless-ngx.svc.cluster.local"
+              value: "10.43.255.222"
             - name: PAPERLESS_DBNAME
               value: "paperless"
             - name: PAPERLESS_DBUSER
@@ -54,9 +54,9 @@ spec:
             - name: PAPERLESS_TIKA_ENABLED
               value: "1"
             - name: PAPERLESS_TIKA_GOTENBERG_ENDPOINT
-              value: "http://paperless-gotenberg:3000"
+              value: "http://10.43.1.236:3000"
             - name: PAPERLESS_TIKA_ENDPOINT
-              value: "http://paperless-tika:9998"
+              value: "http://10.43.194.215:9998"
             - name: PAPERLESS_TIME_ZONE
               value: "Europe/Berlin"
             - name: PAPERLESS_URL
