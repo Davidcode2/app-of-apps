@@ -62,6 +62,14 @@ spec:
               value: "Europe/Berlin"
             - name: PAPERLESS_URL
               value: "https://paperless.jakob-lingel.dev"
+            - name: PAPERLESS_USE_X_FORWARD_HOST
+              value: "true"
+            - name: PAPERLESS_USE_X_FORWARD_PORT
+              value: "true"
+            - name: PAPERLESS_PROXY_SSL_HEADER
+              value: '["HTTP_X_FORWARDED_PROTO", "https"]'
+            - name: PAPERLESS_CSRF_TRUSTED_ORIGINS
+              value: "https://acer-arch.tailb781ce.ts.net,https://paperless.jakob-lingel.dev"
           resources:
             requests:
               memory: "512Mi"
