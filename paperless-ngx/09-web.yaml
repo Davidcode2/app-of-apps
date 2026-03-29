@@ -72,11 +72,11 @@ spec:
               value: "https://acer-arch.tailb781ce.ts.net,https://paperless.jakob-lingel.dev"
           resources:
             requests:
-              memory: "512Mi"
+              memory: "1Gi"
               cpu: "500m"
             limits:
-              memory: "1Gi"
-              cpu: "1000m"
+              memory: "4Gi"
+              cpu: "2000m"
           volumeMounts:
             - name: paperless-data
               mountPath: /usr/src/paperless/media
