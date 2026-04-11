@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maas-bueromoebel
+  namespace: maas-bueromoebel
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: maas-bueromoebel
+  template:
+    metadata:
+      labels:
+        app: maas-bueromoebel
+    spec:
+      containers:
+      - name: maas-bueromoebel
+        image: ghcr.io/davidcode2/maas-bueromoebel:0.0.1
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+          requests:
+            memory: "64Mi"
+            cpu: "50m"

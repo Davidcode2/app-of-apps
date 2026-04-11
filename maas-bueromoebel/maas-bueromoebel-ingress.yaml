@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: maas-bueromoebel-ingress
+  namespace: maas-bueromoebel
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - bueromoebel.jakob-lingel.dev
+    secretName: maas-bueromoebel-tls
+  rules:
+  - host: bueromoebel.jakob-lingel.dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: maas-bueromoebel
+            port:
+              number: 80
