@@ -3,6 +3,8 @@ kind: ConfigMap
 metadata:
   name: gmymf-medusa-env
   namespace: gmymf-medusa
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 data:
   NODE_ENV: production
   PORT: "9000"
