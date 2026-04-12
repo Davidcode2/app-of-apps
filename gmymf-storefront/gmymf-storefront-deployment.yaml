@@ -18,6 +18,11 @@ spec:
         image: ghcr.io/davidcode2/gmymf-storefront:0.0.1
         ports:
         - containerPort: 8080
+        env:
+        - name: PORT
+          value: "8080"
+        - name: MEDUSA_API_URL
+          value: "https://gmymf-medusa.jakob-lingel.dev"
         resources:
           limits:
             memory: "128Mi"
