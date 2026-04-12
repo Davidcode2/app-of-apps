@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gmymf-storefront
+  namespace: gmymf-storefront
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: gmymf-storefront
+  template:
+    metadata:
+      labels:
+        app: gmymf-storefront
+    spec:
+      containers:
+      - name: gmymf-storefront
+        image: ghcr.io/davidcode2/gmymf-storefront:0.0.1
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+          requests:
+            memory: "64Mi"
+            cpu: "50m"

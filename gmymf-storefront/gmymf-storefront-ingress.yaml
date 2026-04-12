@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gmymf-storefront-ingress
+  namespace: gmymf-storefront
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - gmymf-storefront.jakob-lingel.dev
+    secretName: gmymf-storefront-tls
+  rules:
+  - host: gmymf-storefront.jakob-lingel.dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: gmymf-storefront
+            port:
+              number: 80
