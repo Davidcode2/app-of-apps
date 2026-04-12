@@ -4,7 +4,7 @@ metadata:
   name: gmymf-medusa
   namespace: gmymf-medusa
   annotations:
-    argocd.argoproj.io/sync-wave: "4"
+    argocd.argoproj.io/sync-wave: "5"
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
