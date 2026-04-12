@@ -23,6 +23,18 @@ spec:
           value: "8080"
         - name: MEDUSA_API_URL
           value: "https://gmymf-medusa.jakob-lingel.dev"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
         resources:
           limits:
             memory: "128Mi"
