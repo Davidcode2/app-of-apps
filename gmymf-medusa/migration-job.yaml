@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gmymf-medusa-migration
+  namespace: gmymf-medusa
+  labels:
+    app: medusa-migration
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+spec:
+  ttlSecondsAfterFinished: 300
+  backoffLimit: 3
+  template:
+    metadata:
+      labels:
+        app: medusa-migration
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: migration
+          image: ghcr.io/davidcode2/medusa-backend:0.0.1
+          imagePullPolicy: IfNotPresent
+          command: ["yarn", "medusa", "db:migrate"]
+          envFrom:
+            - configMapRef:
+                name: gmymf-medusa-env
+            - secretRef:
+                name: gmymf-medusa-secrets
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gmymf-medusa-env
+  namespace: gmymf-medusa
+data:
+  NODE_ENV: production
+  PORT: "9000"
+  DATABASE_URL: postgres://postgres:$(POSTGRES_PASSWORD)@gmymf-medusa-postgres:5432/medusa_store
+  REDIS_URL: redis://gmymf-medusa-redis:6379
+  STORE_CORS: https://docs.medusajs.com
+  ADMIN_CORS: https://docs.medusajs.com
+  AUTH_CORS: https://docs.medusajs.com

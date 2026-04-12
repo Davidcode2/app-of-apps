@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gmymf-medusa
+  namespace: gmymf-medusa
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - gmymf-medusa.jakob-lingel.dev
+      secretName: gmymf-medusa-tls
+  rules:
+    - host: gmymf-medusa.jakob-lingel.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gmymf-medusa
+                port:
+                  number: 80
