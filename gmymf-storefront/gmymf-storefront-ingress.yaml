@@ -9,10 +9,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - gmymf-storefront.jakob-lingel.dev
+    - gmymf.jakob-lingel.dev
     secretName: gmymf-storefront-tls
   rules:
-  - host: gmymf-storefront.jakob-lingel.dev
+  - host: gmymf.jakob-lingel.dev
     http:
       paths:
       - path: /
