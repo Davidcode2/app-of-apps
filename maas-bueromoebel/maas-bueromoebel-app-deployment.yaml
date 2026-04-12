@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: maas-bueromoebel
-        image: ghcr.io/davidcode2/maas-bueromoebel:0.0.4
+        image: ghcr.io/davidcode2/maas-bueromoebel:0.0.5
         ports:
         - containerPort: 8080
         resources:
