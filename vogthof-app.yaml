@@ -1,22 +1,22 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: vogthof
-  namespace: argocd
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/Davidcode2/app-of-apps
-    targetRevision: HEAD
-    path: vogthof
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: vogthof
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-    - CreateNamespace=true
+#apiVersion: argoproj.io/v1alpha1
+#kind: Application
+#metadata:
+#  name: vogthof
+#  namespace: argocd
+#  finalizers:
+#  - resources-finalizer.argocd.argoproj.io
+#spec:
+#  project: default
+#  source:
+#    repoURL: https://github.com/Davidcode2/app-of-apps
+#    targetRevision: HEAD
+#    path: vogthof
+#  destination:
+#    server: https://kubernetes.default.svc
+#    namespace: vogthof
+#  syncPolicy:
+#    automated:
+#      prune: true
+#      selfHeal: true
+#    syncOptions:
+#    - CreateNamespace=true
