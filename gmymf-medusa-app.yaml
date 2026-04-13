@@ -6,9 +6,12 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Davidcode2/app-of-apps
-    path: gmymf-medusa
+    repoURL: https://github.com/Davidcode2/medusa-backend
+    path: k8s/helm
     targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: gmymf-medusa
