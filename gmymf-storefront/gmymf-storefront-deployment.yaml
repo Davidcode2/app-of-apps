@@ -23,6 +23,11 @@ spec:
           value: "8080"
         - name: MEDUSA_API_URL
           value: "https://gmymf-medusa.jakob-lingel.dev"
+        - name: MEDUSA_PUBLISHABLE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: gmymf-storefront-medusa-secret
+              key: publishable_key
         livenessProbe:
           httpGet:
             path: /
