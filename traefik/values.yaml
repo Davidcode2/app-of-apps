@@ -1,0 +1,66 @@
+# Traefik v3.7.0-ea.3 - NGINX Migration Configuration
+# Deploys alongside nginx-ingress for zero-downtime migration
+
+# Disable Prometheus (not used)
+metrics:
+  prometheus: null
+
+# Deployment - High availability
+deployment:
+  enabled: true
+  replicas: 2
+
+# Pod anti-affinity for node spread
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                  - traefik
+          topologyKey: kubernetes.io/hostname
+
+# Ensure availability during disruptions
+podDisruptionBudget:
+  enabled: true
+  minAvailable: 1
+
+# Hetzner LoadBalancer (same config as nginx-ingress)
+service:
+  type: LoadBalancer
+  annotations:
+    load-balancer.hetzner.cloud/network-zone: eu-central
+    load-balancer.hetzner.cloud/location: nbg1
+
+# Provider configuration
+providers:
+  kubernetesIngress:
+    enabled: true
+    ingressClass: nginx
+    publishedService:
+      enabled: true
+
+  kubernetesCRD:
+    enabled: false
+
+  kubernetesGateway:
+    enabled: false
+
+# Ports
+ports:
+  web:
+    port: 80
+    exposedPort: 80
+    expose:
+      default: true
+  websecure:
+    port: 443
+    exposedPort: 443
+    expose:
+      default: true
+    tls:
+      enabled: true
