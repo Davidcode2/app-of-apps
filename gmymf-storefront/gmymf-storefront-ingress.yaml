@@ -10,9 +10,20 @@ spec:
   tls:
   - hosts:
     - gmymf.jakob-lingel.dev
+    - gmymf.com
     secretName: gmymf-storefront-tls
   rules:
   - host: gmymf.jakob-lingel.dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: gmymf-storefront
+            port:
+              number: 80
+  - host: gmymf.com
     http:
       paths:
       - path: /
