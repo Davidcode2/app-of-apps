@@ -31,10 +31,11 @@ podDisruptionBudget:
 
 # Hetzner LoadBalancer (same config as nginx-ingress)
 service:
-  type: LoadBalancer
   annotations:
     load-balancer.hetzner.cloud/network-zone: eu-central
     load-balancer.hetzner.cloud/location: nbg1
+  spec:
+    type: LoadBalancer
 
 # Provider configuration
 providers:
