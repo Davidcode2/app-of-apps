@@ -11,66 +11,12 @@ spec:
     namespace: traefik
     server: https://kubernetes.default.svc
   source:
-    repoURL: https://traefik.github.io/charts
-    chart: traefik
-    targetRevision: "40.0.0-rc.2"
+    repoURL: https://github.com/davidcode2/app-of-apps
+    targetRevision: HEAD
+    path: traefik
     helm:
-      values: |
-        metrics:
-          prometheus: null
-
-        deployment:
-          enabled: true
-          replicas: 2
-
-        affinity:
-          podAntiAffinity:
-            preferredDuringSchedulingIgnoredDuringExecution:
-              - weight: 100
-                podAffinityTerm:
-                  labelSelector:
-                    matchExpressions:
-                      - key: app.kubernetes.io/name
-                        operator: In
-                        values:
-                          - traefik
-                  topologyKey: kubernetes.io/hostname
-
-        podDisruptionBudget:
-          enabled: true
-          minAvailable: 1
-
-        service:
-          annotations:
-            load-balancer.hetzner.cloud/network-zone: eu-central
-            load-balancer.hetzner.cloud/location: nbg1
-          spec:
-            type: LoadBalancer
-
-        providers:
-          kubernetesIngress:
-            enabled: true
-            ingressClass: nginx
-            publishedService:
-              enabled: true
-          kubernetesCRD:
-            enabled: false
-          kubernetesGateway:
-            enabled: false
-
-        ports:
-          web:
-            port: 80
-            exposedPort: 80
-            expose:
-              default: true
-          websecure:
-            port: 443
-            exposedPort: 443
-            expose:
-              default: true
-            tls:
-              enabled: true
+      valueFiles:
+        - values.yaml
   syncPolicy:
     automated:
       prune: true
