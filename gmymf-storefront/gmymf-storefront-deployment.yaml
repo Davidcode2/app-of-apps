@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: gmymf-storefront
-        image: ghcr.io/davidcode2/gmymf-storefront:0.0.14
+        image: ghcr.io/davidcode2/gmymf-storefront:0.0.15
         ports:
         - containerPort: 8080
         env:
