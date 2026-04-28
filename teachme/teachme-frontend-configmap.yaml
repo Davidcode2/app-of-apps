@@ -6,4 +6,4 @@ metadata:
 data:
   # Runtime configuration can be injected here
   # API_URL will need to be set to the backend ingress URL
-  VITE_API_URL: "https://api.teachly.store"
+  VITE_API_URL: "https://api.teachly.jakob-lingel.dev"

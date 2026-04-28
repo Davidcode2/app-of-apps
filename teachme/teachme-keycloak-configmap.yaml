@@ -4,7 +4,7 @@ metadata:
   name: teachme-keycloak-config
   namespace: teachme
 data:
-  KC_HOSTNAME: "auth.teachly.store"
+  KC_HOSTNAME: "auth.jakob-lingel.dev"
   KC_PROXY: "edge"
   KC_HTTP_ENABLED: "true"
   KC_HEALTH_ENABLED: "true"

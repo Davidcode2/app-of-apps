@@ -9,7 +9,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: app.teachly.store
+    - host: app.teachly.jakob-lingel.dev
       http:
         paths:
           # All requests → frontend service
@@ -22,5 +22,5 @@ spec:
                   number: 80
   tls:
     - hosts:
-        - app.teachly.store
+        - app.teachly.jakob-lingel.dev
       secretName: teachme-frontend-tls
