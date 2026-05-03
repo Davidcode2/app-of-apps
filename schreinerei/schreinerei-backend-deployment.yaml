@@ -32,7 +32,7 @@ spec:
             - until pg_isready -h schreinerei-postgres-service -p 5432 -U "$POSTGRES_USER" -d "$POSTGRES_DB"; do sleep 2; done
       containers:
         - name: schreinerei-backend
-          image: ghcr.io/davidcode2/schreinerei-backend:0.1.5
+          image: ghcr.io/davidcode2/schreinerei-backend:0.1.6
           envFrom:
             - configMapRef:
                 name: schreinerei-backend-config
