@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: schreinerei-backend-config
+  namespace: schreinerei
+data:
+  HOST: "0.0.0.0"
+  PORT: "3000"
+  RUN_MIGRATIONS: "false"
+  KEYCLOAK_URL: "https://auth.jakob-lingel.dev"
+  KEYCLOAK_REALM: "schreinerei"
+  JWT_ISSUER: "https://auth.jakob-lingel.dev/realms/schreinerei"
+  RUST_LOG: "info,schreinerei=info,tower_http=info"

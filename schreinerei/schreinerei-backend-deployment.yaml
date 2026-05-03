@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: schreinerei-backend
+  namespace: schreinerei
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  labels:
+    app: schreinerei-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: schreinerei-backend
+  template:
+    metadata:
+      labels:
+        app: schreinerei-backend
+    spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      initContainers:
+        - name: wait-for-postgres
+          image: postgres:16-alpine
+          envFrom:
+            - secretRef:
+                name: schreinerei-db-secret
+          command:
+            - sh
+            - -c
+            - until pg_isready -h schreinerei-postgres-service -p 5432 -U "$POSTGRES_USER" -d "$POSTGRES_DB"; do sleep 2; done
+      containers:
+        - name: schreinerei-backend
+          image: ghcr.io/davidcode2/schreinerei-backend:0.1.0
+          envFrom:
+            - configMapRef:
+                name: schreinerei-backend-config
+            - secretRef:
+                name: schreinerei-db-secret
+          ports:
+            - containerPort: 3000
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 20
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi

@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: schreinerei-frontend
+  namespace: schreinerei
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  labels:
+    app: schreinerei-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: schreinerei-frontend
+  template:
+    metadata:
+      labels:
+        app: schreinerei-frontend
+    spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: schreinerei-frontend
+          image: ghcr.io/davidcode2/schreinerei-frontend:0.1.0
+          ports:
+            - containerPort: 8080
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            runAsNonRoot: true
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
