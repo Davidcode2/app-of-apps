@@ -7,6 +7,12 @@ metadata:
     app: teachme-keycloak
 spec:
   replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  minReadySeconds: 10
   selector:
     matchLabels:
       app: teachme-keycloak
@@ -15,6 +21,7 @@ spec:
       labels:
         app: teachme-keycloak
     spec:
+      terminationGracePeriodSeconds: 30
       containers:
         - name: keycloak
           # NOTE: This image tag is auto-updated by GitHub Actions
@@ -33,6 +40,30 @@ spec:
           env:
             - name: KC_DB_URL
               value: "jdbc:postgresql://teachme-keycloak-db-service:5432/keycloak"
+          startupProbe:
+            httpGet:
+              path: /health/ready
+              port: 9000
+              scheme: HTTP
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 30
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 9000
+              scheme: HTTP
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 9000
+              scheme: HTTP
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
           resources:
             requests:
               memory: "512Mi"
