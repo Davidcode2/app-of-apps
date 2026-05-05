@@ -19,7 +19,7 @@ spec:
         - name: keycloak
           # NOTE: This image tag is auto-updated by GitHub Actions
           # Do not manually edit - the workflow will overwrite this
-          image: ghcr.io/davidcode2/teachme-keycloak:sha-40f38cc704199af8f1b81ce0c383a11286f5f66d
+          image: ghcr.io/Davidcode2/teachme-keycloak:sha-e282e34
           ports:
             - containerPort: 8080
               protocol: TCP
