@@ -20,7 +20,7 @@ spec:
         app: immoly-app
     spec:
       containers:
-        - image: ghcr.io/davidcode2/immoly:1.0.1
+        - image: ghcr.io/davidcode2/immoly:1.0.2
           name: immoly-app
           envFrom:
             - configMapRef:
