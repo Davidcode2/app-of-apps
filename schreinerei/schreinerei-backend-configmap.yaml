@@ -10,4 +10,6 @@ data:
   KEYCLOAK_URL: "https://auth.jakob-lingel.dev"
   KEYCLOAK_REALM: "schreinerei"
   JWT_ISSUER: "https://auth.jakob-lingel.dev/realms/schreinerei"
+  APP_PUBLIC_URL: "https://schreinerei.jakob-lingel.dev"
+  FRONTEND_PUBLIC_URL: "https://schreinerei.jakob-lingel.dev"
   RUST_LOG: "info,schreinerei=info,tower_http=info"
