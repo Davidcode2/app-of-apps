@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: schreinerei-app-ingress
+  namespace: schreinerei-app
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: "schreinerei-app.jakob-lingel.dev"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: schreinerei-app-service
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - "schreinerei-app.jakob-lingel.dev"
+      secretName: schreinerei-app-tls
