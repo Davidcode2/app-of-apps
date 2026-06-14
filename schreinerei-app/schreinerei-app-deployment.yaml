@@ -22,7 +22,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: schreinerei-app
-          image: ghcr.io/davidcode2/schreinerei-landing-page:0.1.5
+          image: ghcr.io/davidcode2/schreinerei-landing-page:0.1.6
           ports:
             - containerPort: 8080
           securityContext:
