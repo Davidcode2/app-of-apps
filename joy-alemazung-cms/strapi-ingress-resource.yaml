@@ -29,6 +29,27 @@ spec:
                 name: strapi-app-service
                 port:
                   number: 1337
+    # --- Debugging / Testing Hosts ---
+    - host: "api.alemazung.immoly.io"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: strapi-app-service
+                port:
+                  number: 1337
+    - host: "www.api.alemazung.immoly.io"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: strapi-app-service
+                port:
+                  number: 1337
     # --- Production Hosts (.de) ---
     - host: "api.alemazung.de"
       http:
@@ -54,6 +75,8 @@ spec:
   - hosts:
       - "api.alemazung.immo.jakob-lingel.dev"
       - "www.api.alemazung.immo.jakob-lingel.dev"
+      - "api.alemazung.immoly.io"
+      - "www.api.alemazung.immoly.io"
       - "api.alemazung.de"
       - "www.api.alemazung.de"
     secretName: alemazung-cms-tls
