@@ -12,7 +12,7 @@ spec:
   # This tells the NGINX controller to manage this Ingress
   ingressClassName: nginx
   rules:
-    - host: "alemazung.immoly.io"
+    - host: "alemazung.immo.jakob-lingel.dev"
       http:
         paths:
           - path: /
@@ -23,7 +23,7 @@ spec:
                 port:
                   # This must match the 'port' (not targetPort) from the Service
                   number: 80
-    - host: "www.alemazung.immoly.io"
+    - host: "www.alemazung.immo.jakob-lingel.dev"
       http:
         paths:
           - path: /
@@ -57,8 +57,8 @@ spec:
                   number: 80
   tls:
   - hosts:
-      - "alemazung.immoly.io"
-      - "www.alemazung.immoly.io"
+      - "alemazung.immo.jakob-lingel.dev"
+      - "www.alemazung.immo.jakob-lingel.dev"
       - "alemazung.de"
       - "www.alemazung.de"
     secretName: alemazung-tls

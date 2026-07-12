@@ -68,7 +68,7 @@ aws ssm put-parameter \
 
 aws ssm put-parameter \
   --name "/joy-alemazung/strapi/api-url" \
-  --value "https://api.alemazung.immoly.io" \
+  --value "https://api.alemazung.immo.jakob-lingel.dev" \
   --type "String"
 ```
 
