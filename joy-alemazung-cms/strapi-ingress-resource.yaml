@@ -73,8 +73,8 @@ spec:
                   number: 1337
   tls:
   - hosts:
-      - "api.alemazung.immo.jakob-lingel.dev"
-      - "www.api.alemazung.immo.jakob-lingel.dev"
+      - "api.alemazung.jakob-lingel.dev"
+      - "www.api.alemazung.jakob-lingel.dev"
       - "api.alemazung.immoly.io"
       - "www.api.alemazung.immoly.io"
       - "api.alemazung.de"
