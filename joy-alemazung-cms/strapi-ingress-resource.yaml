@@ -9,27 +9,6 @@ spec:
   ingressClassName: nginx
   rules:
     # --- Debugging / Testing Hosts ---
-    - host: "api.alemazung.immo.jakob-lingel.dev"
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: strapi-app-service
-                port:
-                  number: 1337
-    - host: "www.api.alemazung.immo.jakob-lingel.dev"
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: strapi-app-service
-                port:
-                  number: 1337
-    # --- Debugging / Testing Hosts ---
     - host: "api.alemazung.immoly.io"
       http:
         paths:
@@ -73,8 +52,6 @@ spec:
                   number: 1337
   tls:
   - hosts:
-      - "api.alemazung.jakob-lingel.dev"
-      - "www.api.alemazung.jakob-lingel.dev"
       - "api.alemazung.immoly.io"
       - "www.api.alemazung.immoly.io"
       - "api.alemazung.de"
