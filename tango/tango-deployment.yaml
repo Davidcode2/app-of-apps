@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: tango
-        image: ghcr.io/davidcode2/tango:0.0.1
+        image: ghcr.io/davidcode2/tango:0.0.2
         ports:
         - containerPort: 3000
         resources:
