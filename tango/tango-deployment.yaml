@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tango
+  namespace: tango
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tango
+  template:
+    metadata:
+      labels:
+        app: tango
+    spec:
+      containers:
+      - name: tango
+        image: ghcr.io/davidcode2/tango:0.0.14
+        ports:
+        - containerPort: 3000
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
