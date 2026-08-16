@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Davidcode2/app-of-apps
+    repoURL: https://github.com/davidcode2/app-of-apps
     targetRevision: HEAD
     path: vacation
   destination:
