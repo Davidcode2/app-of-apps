@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vacation-ingress
+  namespace: vacation
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/auth-url: "https://oauth2-proxy.jakob-lingel.dev/oauth2/auth"
+    nginx.ingress.kubernetes.io/auth-signin: "https://oauth2-proxy.jakob-lingel.dev/oauth2/start?rd=$scheme://$http_host$escaped_request_uri"
+    nginx.ingress.kubernetes.io/auth-response-headers: "X-Forwarded-User,X-Forwarded-Groups,X-Forwarded-Email"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - portfolio.jakob-lingel.dev
+      secretName: vacation-tls
+  rules:
+    - host: portfolio.jakob-lingel.dev
+      http:
+        paths:
+          - path: /personal/vacation
+            pathType: Prefix
+            backend:
+              service:
+                name: vacation
+                port:
+                  number: 80

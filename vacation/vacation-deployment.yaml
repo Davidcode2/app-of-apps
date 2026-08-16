@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vacation
+  namespace: vacation
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: vacation
+  template:
+    metadata:
+      labels:
+        app: vacation
+    spec:
+      containers:
+      - name: vacation
+        image: ghcr.io/davidcode2/vacation:1.0.0
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
