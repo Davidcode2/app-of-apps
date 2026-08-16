@@ -21,6 +21,7 @@ spec:
           args:
             - --provider=keycloak-oidc
             - --oidc-issuer-url=https://auth.jakob-lingel.dev/realms/personal
+            - --oidc-audience-claim=azp
             - --redirect-url=https://oauth2.jakob-lingel.dev/oauth2/callback
             - --cookie-domain=.jakob-lingel.dev
             - --cookie-secure=true
