@@ -47,6 +47,8 @@ app-of-apps/
 │   └── joy-alemazung-cms/
 ├── umami-app.yaml
 │   └── umami/
+├── vacation-product-app.yaml
+│   └── vacation-product/
 └── uptime-kuma-app.yaml
     └── uptime-kuma/
 ```
