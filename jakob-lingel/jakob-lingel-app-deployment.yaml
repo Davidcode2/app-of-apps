@@ -20,7 +20,7 @@ spec:
         app: jakob-lingel-app
     spec:
       containers:
-        - image: ghcr.io/davidcode2/jakob-lingel:1.0.23
+        - image: ghcr.io/davidcode2/jakob-lingel:1.0.24
           name: jakob-lingel-app
           resources:
             requests:
