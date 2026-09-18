@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: its-time-for-smiles
-          image: ghcr.io/davidcode2/its-time-for-smiles:0.0.8
+          image: ghcr.io/davidcode2/its-time-for-smiles:0.0.9
           ports:
             - containerPort: 8080
           env:
