@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: its-time-for-smiles
+  namespace: smiles
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: its-time-for-smiles
+  template:
+    metadata:
+      labels:
+        app: its-time-for-smiles
+    spec:
+      containers:
+        - name: its-time-for-smiles
+          image: ghcr.io/davidcode2/its-time-for-smiles:0.0.1
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MESSAGE_ROUTER_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: smiles-message-router-secret
+                  key: message-router-api-key
+            - name: NGINX_ENVSUBST_FILTER
+              value: "$MESSAGE_ROUTER_API_KEY"
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "50m"
+            limits:
+              memory: "128Mi"
+              cpu: "100m"

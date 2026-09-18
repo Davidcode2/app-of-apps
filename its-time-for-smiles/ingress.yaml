@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: its-time-for-smiles
+  namespace: smiles
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - smiles.jakob-lingel.dev
+      secretName: smiles-jakob-lingel-dev-tls
+  rules:
+    - host: smiles.jakob-lingel.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: its-time-for-smiles
+                port:
+                  number: 80
