@@ -24,8 +24,6 @@ spec:
                 secretKeyRef:
                   name: smiles-message-router-secret
                   key: message-router-api-key
-            - name: NGINX_ENVSUBST_FILTER
-              value: "$MESSAGE_ROUTER_API_KEY"
           resources:
             requests:
               memory: "64Mi"
