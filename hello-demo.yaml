@@ -13,7 +13,7 @@ spec:
     path: hello-demo
   destination:
     server: https://kubernetes.default.svc
-    namespace: business-website
+    namespace: hello-demo
   syncPolicy:
     automated:
       prune: true
