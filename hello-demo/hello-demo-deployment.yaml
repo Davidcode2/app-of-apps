@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-demo
+  namespace: hello-demo
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+  labels:
+    app: hello-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-demo
+  template:
+    metadata:
+      labels:
+        app: hello-demo
+    spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: hello-demo
+          image: nginxdemos/hello:plain-text
+          ports:
+            - containerPort: 8080
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            runAsNonRoot: true
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
