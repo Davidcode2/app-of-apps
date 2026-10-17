@@ -24,20 +24,20 @@ spec:
         - name: hello-demo
           image: nginxdemos/hello:plain-text
           ports:
-            - containerPort: 8080
+            - containerPort: 80
           securityContext:
             allowPrivilegeEscalation: false
             runAsNonRoot: false
           readinessProbe:
             httpGet:
               path: /
-              port: 8080
+              port: 80
             initialDelaySeconds: 5
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /
-              port: 8080
+              port: 80
             initialDelaySeconds: 20
             periodSeconds: 20
           resources:
