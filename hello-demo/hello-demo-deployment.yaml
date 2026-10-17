@@ -27,8 +27,6 @@ spec:
             - containerPort: 8080
           securityContext:
             allowPrivilegeEscalation: false
-            capabilities:
-              drop: ["ALL"]
             runAsNonRoot: false
           readinessProbe:
             httpGet:
