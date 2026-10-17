@@ -29,7 +29,7 @@ spec:
             allowPrivilegeEscalation: false
             capabilities:
               drop: ["ALL"]
-            runAsNonRoot: true
+            runAsNonRoot: false
           readinessProbe:
             httpGet:
               path: /
