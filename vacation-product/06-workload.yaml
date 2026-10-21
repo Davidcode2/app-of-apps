@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vacation-product
+  namespace: vacation-product
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vacation-product
+  template:
+    metadata:
+      labels:
+        app: vacation-product
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: web
+          image: ghcr.io/davidcode2/vacation-product-web:sha-88bf2361a71afc0500d383a9442bba02fc16f809
+          ports:
+            - name: http
+              containerPort: 8080
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 25m
+              memory: 32Mi
+            limits:
+              cpu: 250m
+              memory: 128Mi
+        - name: api
+          image: ghcr.io/davidcode2/vacation-product-api:sha-88bf2361a71afc0500d383a9442bba02fc16f809
+          ports:
+            - name: api
+              containerPort: 4000
+          envFrom:
+            - secretRef:
+                name: vacation-product-env
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: PUBLISHED_ROOT
+              value: /data/published
+          volumeMounts:
+            - name: published
+              mountPath: /data/published
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: api
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 750m
+              memory: 512Mi
+      volumes:
+        - name: published
+          persistentVolumeClaim:
+            claimName: vacation-product-published
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vacation-product
+  namespace: vacation-product
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  selector:
+    app: vacation-product
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
