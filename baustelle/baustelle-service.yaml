@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: baustelle
+  namespace: baustelle
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+  labels:
+    app: baustelle
+spec:
+  type: ClusterIP
+  selector:
+    app: baustelle
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
