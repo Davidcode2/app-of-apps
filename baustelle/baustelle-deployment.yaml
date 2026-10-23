@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: baustelle
+  namespace: baustelle
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+  labels:
+    app: baustelle
+spec:
+  # Exactly one replica: SQLite lives on a ReadWriteOnce PVC
+  replicas: 1
+  selector:
+    matchLabels:
+      app: baustelle
+  template:
+    metadata:
+      labels:
+        app: baustelle
+    spec:
+      containers:
+      - name: baustelle
+        image: ghcr.io/davidcode2/baustelle_social:0.0.1
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DATA_DIR
+          value: /data
+        volumeMounts:
+        - name: baustelle-data
+          mountPath: /data
+        readinessProbe:
+          httpGet:
+            path: /personal/baustelle/api/health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /personal/baustelle/api/health
+            port: 8080
+          initialDelaySeconds: 20
+          periodSeconds: 20
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+      volumes:
+      - name: baustelle-data
+        persistentVolumeClaim:
+          claimName: baustelle-data
