@@ -3,8 +3,6 @@ kind: Service
 metadata:
   name: baustelle
   namespace: baustelle
-  annotations:
-    argocd.argoproj.io/sync-wave: "2"
   labels:
     app: baustelle
 spec:
@@ -12,6 +10,7 @@ spec:
   selector:
     app: baustelle
   ports:
-  - port: 80
-    targetPort: 8080
-    protocol: TCP
+    - name: http
+      port: 80
+      targetPort: http
+      protocol: TCP
