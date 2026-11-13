@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: baustelle
+  namespace: baustelle
+  labels:
+    app: baustelle
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate # RWO volume + single-writer SQLite
+  selector:
+    matchLabels:
+      app: baustelle
+  template:
+    metadata:
+      labels:
+        app: baustelle
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: baustelle
+          image: ghcr.io/davidcode2/baustelle_social:0.0.13
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: DATA_DIR
+              value: /data
+            - name: AUTH_REQUIRED
+              value: 'true'
+            - name: NODE_ENV
+              value: production
+            - name: LOG_LEVEL
+              value: info
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: tmp
+              mountPath: /tmp
+          readinessProbe:
+            httpGet:
+              path: /personal/baustelle/api/health
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /personal/baustelle/api/health
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 1Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ['ALL']
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: baustelle-data
+        - name: tmp
+          emptyDir:
+            sizeLimit: 256Mi

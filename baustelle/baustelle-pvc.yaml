@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: baustelle-data
+  namespace: baustelle
+  labels:
+    app: baustelle
+  annotations:
+    # User data must survive `prune: true` and an accidental Application
+    # deletion. Non-negotiable (specs/05-deployment.md §4.3).
+    argocd.argoproj.io/sync-options: Prune=false,Delete=false
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi

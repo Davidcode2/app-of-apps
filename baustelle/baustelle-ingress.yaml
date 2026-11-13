@@ -1,0 +1,42 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: baustelle
+  namespace: baustelle
+  labels:
+    app: baustelle
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: 'true'
+    nginx.ingress.kubernetes.io/auth-url: 'https://oauth2.jakob-lingel.dev/oauth2/auth'
+    nginx.ingress.kubernetes.io/auth-signin: 'https://oauth2.jakob-lingel.dev/oauth2/start?rd=$scheme://$http_host$escaped_request_uri'
+    # Identity headers from the auth response. oauth2-proxy emits both families
+    # (`--pass-user-headers` and `--set-xauthrequest`); the app accepts either,
+    # so a controller that drops one still leaves the app usable. The proxy
+    # overwrites incoming values; client identity never reaches the app
+    # (ADR-006).
+    nginx.ingress.kubernetes.io/auth-response-headers: 'X-Forwarded-User,X-Forwarded-Groups,X-Forwarded-Email,X-Auth-Request-User,X-Auth-Request-Groups,X-Auth-Request-Email'
+    # App cap is 32 MB per post (4 x 8 MB) plus multipart overhead.
+    nginx.ingress.kubernetes.io/proxy-body-size: '32m'
+    nginx.ingress.kubernetes.io/proxy-read-timeout: '60'
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - portfolio.jakob-lingel.dev
+      # cert-manager issues a second certificate in this namespace; a Secret
+      # cannot be referenced across namespaces (ADR-005).
+      secretName: baustelle-tls
+  rules:
+    - host: portfolio.jakob-lingel.dev
+      http:
+        paths:
+          # More specific than /personal on jakob-lingel-personal, so nginx
+          # prefers this backend. No rewrite: Astro base handles the prefix.
+          - path: /personal/baustelle
+            pathType: Prefix
+            backend:
+              service:
+                name: baustelle
+                port:
+                  number: 80
