@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: radar-taskboard
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    # Lowercase owner: the GitHub App used for GitOps read access is case-sensitive.
+    repoURL: https://github.com/davidcode2/app-of-apps
+    targetRevision: HEAD
+    path: radar-taskboard
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: radar-taskboard
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

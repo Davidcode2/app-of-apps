@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: radar-taskboard-ingress
+  namespace: radar-taskboard
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - radar-taskboard.jakob-lingel.dev
+    secretName: radar-taskboard-tls
+  rules:
+  - host: radar-taskboard.jakob-lingel.dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: radar-taskboard
+            port:
+              number: 80
