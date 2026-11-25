@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: alemazungv2
+  namespace: joy-alemazung
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - alemazungv2.jakob-lingel.dev
+      secretName: alemazungv2-tls
+  rules:
+    - host: alemazungv2.jakob-lingel.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: alemazungv2
+                port:
+                  number: 80
