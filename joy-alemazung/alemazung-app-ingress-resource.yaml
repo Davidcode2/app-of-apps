@@ -19,7 +19,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: alemazung-app-service
+                name: alemazungv2
                 port:
                   # This must match the 'port' (not targetPort) from the Service
                   number: 80
@@ -30,7 +30,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: alemazung-app-service
+                name: alemazungv2
                 port:
                   number: 80
     - host: "www.alemazung.de"
@@ -40,7 +40,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: alemazung-app-service
+                name: alemazungv2
                 port:
                   # This must match the 'port' (not targetPort) from the Service
                   number: 80
