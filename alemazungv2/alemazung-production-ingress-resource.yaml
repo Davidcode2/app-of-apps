@@ -4,8 +4,7 @@ metadata:
   name: alemazung-ingress
   namespace: joy-alemazung
   annotations:
-    # We use a sync-wave to ensure this resource is only applied
-    # *after* the service it depends on has been created by ArgoCD.
+    # Apply after the Astro service.
     argocd.argoproj.io/sync-wave: "1"
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
