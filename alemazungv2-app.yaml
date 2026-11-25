@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: alemazungv2
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/davidcode2/app-of-apps
+    targetRevision: HEAD
+    path: alemazungv2
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: joy-alemazung
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
