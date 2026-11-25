@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: alemazungv2
-          image: ghcr.io/davidcode2/alemazung_astro:0.0.1
+          image: ghcr.io/davidcode2/alemazung_astro:0.0.2
           envFrom:
             - secretRef:
                 name: alemazung-strapi-secret
