@@ -3,6 +3,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: teachme-keycloak-db-pvc
   namespace: teachme
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false,Delete=false
 spec:
   accessModes:
     - ReadWriteOnce

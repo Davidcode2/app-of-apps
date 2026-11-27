@@ -443,6 +443,7 @@ Git is the source of truth. To rollback:
 ### Current File Structure
 ```
 .
+├── KEYCLOAK-CUTOVER.md                  # Staged ownership handoff and verification
 ├── app-of-apps.yml
 ├── argocd-infra-app.yaml
 ├── argocd-ingress

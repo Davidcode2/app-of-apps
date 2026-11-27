@@ -3,8 +3,6 @@ kind: Application
 metadata:
   name: teachme
   namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
@@ -16,7 +14,8 @@ spec:
     namespace: teachme
   syncPolicy:
     automated:
-      prune: true
+      # Keycloak will be adopted by another Application; never prune it here.
+      prune: false
       selfHeal: true
     syncOptions:
       - CreateNamespace=true

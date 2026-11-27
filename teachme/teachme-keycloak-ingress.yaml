@@ -4,7 +4,6 @@ metadata:
   name: teachme-keycloak-ingress
   namespace: teachme
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     # Keycloak requires specific proxy settings
     nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"

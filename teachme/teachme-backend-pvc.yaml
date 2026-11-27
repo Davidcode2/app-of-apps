@@ -3,6 +3,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: teachme-assets-pvc
   namespace: teachme
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false,Delete=false
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   accessModes:
     - ReadWriteOnce
