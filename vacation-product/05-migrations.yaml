@@ -1,0 +1,160 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vacation-product-migrations
+  namespace: vacation-product
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+data:
+  001_initial.sql: |
+    CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+    CREATE TABLE trip_projects (
+      id UUID PRIMARY KEY,
+      owner_subject TEXT NOT NULL,
+      slug TEXT NOT NULL UNIQUE,
+      version INTEGER NOT NULL CHECK (version > 0),
+      status TEXT NOT NULL,
+      document JSONB NOT NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      CHECK ((document->>'id')::uuid = id),
+      CHECK ((document->>'version')::integer = version),
+      CHECK (document->>'schemaVersion' = '1.0')
+    );
+    CREATE INDEX trip_projects_owner_updated_idx ON trip_projects(owner_subject, updated_at DESC);
+
+    CREATE TABLE payments (
+      id UUID PRIMARY KEY,
+      trip_id UUID NOT NULL REFERENCES trip_projects(id),
+      owner_subject TEXT NOT NULL,
+      provider TEXT NOT NULL CHECK (provider = 'mollie'),
+      provider_payment_id TEXT UNIQUE,
+      amount_minor INTEGER NOT NULL CHECK (amount_minor > 0),
+      currency CHAR(3) NOT NULL,
+      status TEXT NOT NULL,
+      checkout_url TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    );
+
+    CREATE TABLE payment_events (
+      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      provider_payment_id TEXT NOT NULL,
+      provider_status TEXT NOT NULL,
+      payload JSONB NOT NULL,
+      processed_at TIMESTAMPTZ,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      UNIQUE (provider_payment_id, provider_status)
+    );
+
+    CREATE TABLE entitlements (
+      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      trip_id UUID NOT NULL REFERENCES trip_projects(id),
+      payment_id UUID NOT NULL REFERENCES payments(id),
+      capability TEXT NOT NULL,
+      valid_until TIMESTAMPTZ NOT NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      UNIQUE (trip_id, payment_id, capability)
+    );
+
+    CREATE TABLE publications (
+      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      trip_id UUID NOT NULL REFERENCES trip_projects(id),
+      trip_version INTEGER NOT NULL,
+      artifact_hash TEXT NOT NULL,
+      storage_key TEXT NOT NULL UNIQUE,
+      status TEXT NOT NULL,
+      expires_at TIMESTAMPTZ NOT NULL,
+      published_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      UNIQUE (trip_id, trip_version, artifact_hash)
+    );
+
+    CREATE TABLE access_grants (
+      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      publication_id UUID NOT NULL REFERENCES publications(id),
+      token_hash TEXT NOT NULL UNIQUE,
+      label TEXT NOT NULL,
+      expires_at TIMESTAMPTZ NOT NULL,
+      revoked_at TIMESTAMPTZ,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    );
+
+    CREATE TABLE outbox_messages (
+      id UUID PRIMARY KEY,
+      event_type TEXT NOT NULL,
+      recipient TEXT NOT NULL,
+      payload JSONB NOT NULL,
+      attempts INTEGER NOT NULL DEFAULT 0,
+      provider_message_id TEXT,
+      sent_at TIMESTAMPTZ,
+      last_error TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    );
+  002_owner_scoped_trip_slugs.sql: |
+    ALTER TABLE trip_projects DROP CONSTRAINT trip_projects_slug_key;
+    ALTER TABLE trip_projects ADD CONSTRAINT trip_projects_owner_slug_key UNIQUE (owner_subject, slug);
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: vacation-product-migrations
+  namespace: vacation-product
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-options: Force=true,Replace=true
+spec:
+  ttlSecondsAfterFinished: 300
+  backoffLimit: 3
+  template:
+    metadata:
+      labels:
+        app: vacation-product-migrations
+    spec:
+      restartPolicy: Never
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: migrate
+          image: postgres:16-alpine
+          envFrom:
+            - secretRef:
+                name: vacation-product-env
+          env:
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: vacation-product-env
+                  key: POSTGRES_PASSWORD
+          command:
+            - sh
+            - -ec
+            - |
+              until pg_isready -h vacation-product-postgres -U "$POSTGRES_USER" -d "$POSTGRES_DB"; do sleep 2; done
+              psql -h vacation-product-postgres -U "$POSTGRES_USER" -d "$POSTGRES_DB" -v ON_ERROR_STOP=1 \
+                -c 'CREATE TABLE IF NOT EXISTS schema_migrations (version TEXT PRIMARY KEY, applied_at TIMESTAMPTZ NOT NULL DEFAULT now())'
+              for migration in /migrations/*.sql; do
+                version="$(basename "$migration")"
+                applied="$(psql -h vacation-product-postgres -U "$POSTGRES_USER" -d "$POSTGRES_DB" -tAc "SELECT 1 FROM schema_migrations WHERE version = '$version'")"
+                if [ "$applied" != "1" ]; then
+                  psql -h vacation-product-postgres -U "$POSTGRES_USER" -d "$POSTGRES_DB" -v ON_ERROR_STOP=1 --single-transaction -f "$migration"
+                  psql -h vacation-product-postgres -U "$POSTGRES_USER" -d "$POSTGRES_DB" -v ON_ERROR_STOP=1 \
+                    -c "INSERT INTO schema_migrations(version) VALUES ('$version')"
+                fi
+              done
+          volumeMounts:
+            - name: migrations
+              mountPath: /migrations
+              readOnly: true
+          resources:
+            requests:
+              cpu: 25m
+              memory: 64Mi
+            limits:
+              cpu: 250m
+              memory: 128Mi
+      volumes:
+        - name: migrations
+          configMap:
+            name: vacation-product-migrations
