@@ -466,6 +466,8 @@ Git is the source of truth. To rollback:
 │   └── joy-alemazung/
 ├── joy-alemazung-cms-app.yaml
 │   └── joy-alemazung-cms/
+├── keycloak-app.yaml
+│   └── keycloak/                       # Shared identity provider and its existing namespace
 ├── schluesselmomente-app.yaml
 │   └── schluesselmomente/
 ├── umami-app.yaml
