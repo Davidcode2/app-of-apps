@@ -17,5 +17,3 @@ spec:
       # Keycloak will be adopted by another Application; never prune it here.
       prune: false
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true

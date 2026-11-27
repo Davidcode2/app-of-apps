@@ -53,8 +53,13 @@ done
 ## 2. Transfer ownership after the checks above pass
 
 Deploy the extraction PR separately. Do not manually prune Teachly or delete
-its namespace. Argo CD's new `keycloak` Application adopts the existing
-objects in place. Leave the Keycloak image workflow idle during the handoff.
+its namespace. Once the root creates `keycloak`, run a full sync of `keycloak`
+without prune or force if it hasn't already adopted the resources. This also
+updates resource tracking if Argo reports matching specs on first comparison.
+Leave the Keycloak image workflow idle during the handoff and update its
+GitOps path before its next run. The theme and image source stay in the
+Teachly source repository; the running Keycloak service does not depend on
+the Teachly workloads.
 
 Check that `keycloak` is Synced/Healthy at the extraction revision, has no
 shared-resource warning after Teachly refreshes, and that the original
@@ -64,4 +69,6 @@ Teachly should still have zero replicas for all three deployments.
 
 If adoption fails, revert **only the extraction change**, keeping step 1's
 prune protection. Confirm Teachly adopts the original resources again and
-recheck the issuer and claim. Do not delete resources to undo the handoff.
+recheck the issuer and claim. Run a full sync of Teachly without prune or
+force if necessary to reclaim tracking. Do not delete resources to undo the
+handoff.
